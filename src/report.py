@@ -22,7 +22,9 @@ __license__ = 'MIT License'
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
  #================================================================================
-
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -145,9 +147,9 @@ app.layout = html.Div([
 )
 def update_graphs(n_clicks, querying, start_date, end_date, frequency):
     if n_clicks > 0:
-        dm = DataManager(querying, start_date, end_date, frequency)
-        dm.fetch_stock_codes()
-        dm.fetch_daily_data()
+        # dm = DataManager(querying, start_date, end_date, frequency)
+        # dm.fetch_stock_codes()
+        # dm.fetch_daily_data()
         value_figure = {
             'data': [],
             'layout': {

@@ -56,29 +56,29 @@ class Backtest(TargetTrade):
         return
     
     def order_execution(self, stk_dict):
-        pdb.set_trace()
         operating_date = stk_dict['mapping']
         for di in range(1, self.quote.shape[0]):
-            for ii in self.quote.shape[1]:
-                if di in operating_date.keys():
-                    date_key = operating_date[di]
-                    stk_list = stk_dict[date_key].stk_idx.to_list()
+            if di in operating_date.keys():
+                date_key = operating_date[di]
+                stk_list = stk_dict[date_key].stk_idx.to_list()
+                previous_booksize = self.cash[di-1] + sum(self.market_val[di-1])
+                target_value = previous_booksize / len(stk_list)
+
+                for ii in self.quote.shape[1]:
                     if ii in stk_list:
-                        previous_booksize = self.cash[di-1] + sum(self.market_val[di-1])
-                        target_value = previous_booksize / len(stk_list)
                         previous_mktv = self.position[di-1][ii] * self.quote[di-1][ii]
                         trade_value = target_value - previous_mktv
                         trade_price = self.quote[di][ii]
-                        if trade_value > 0:
-                            self.buy(di, ii, trade_value, trade_price, self.cash[di-1])  # TODO: cash remained ranking and iteration!
-                        elif trade_value < 0:
+                        if trade_value < 0:  # close the position first
                             self.sell(di, ii, trade_value, trade_price, self.position[di-1][ii])
+                        elif trade_value > 0:
+                            self.buy(di, ii, trade_value, trade_price, self.cash[di-1])  # TODO: cash remained ranking and iteration!
                         else:
                             self.hold(di, ii)
                     else:
                         self.hold(di, ii)
-                else:
-                    self.hold(di, ii)
+            else:
+                self.hold(di, ii)
         return
 
 
