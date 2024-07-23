@@ -1,9 +1,8 @@
 __author__ = 'jxxie'
 __license__ = 'MIT License'
 
- #================================================================================
-
-# Copyright (c) [2021] [jxxie]
+#================================================================================
+# Copyright (c) [2024] [jxxie]
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,3 +21,14 @@ __license__ = 'MIT License'
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+ #================================================================================
+import pandas as pd
+
+def date_resample(start, end, freq):
+    '''
+    start: date string, YYYY-MM-DD
+    end: date string, YYYY-MM-DD
+    '''
+    dates = pd.date_range(start=start, end=end, freq=freq)
+    dates = [str(x)[:10].replace('-', '.') for x in dates]
+    return dates

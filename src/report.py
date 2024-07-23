@@ -1,9 +1,8 @@
 __author__ = 'jxxie'
 __license__ = 'MIT License'
 
- #================================================================================
-
-# Copyright (c) [2021] [jxxie]
+#================================================================================
+# Copyright (c) [2024] [jxxie]
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +28,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import datetime
+from src.datamanager import DataManager
 
 app = dash.Dash(__name__)
 
@@ -83,15 +83,12 @@ date_picker_style = {
 app.layout = html.Div([
     html.Div([
         html.H2('Groot', style={'textAlign': 'center', 'color': '#0D47A1'}),
-        html.Label('BacktestFreq', style=label_style),
-        dcc.Dropdown(
-            id='frequency-dropdown',
-            options=[
-                {'label': 'Monthly', 'value': 'M'},
-                {'label': 'Quarterly', 'value': 'Q'}
-            ],
-            value='M',  # default value
-            style={'marginBottom': '20px'}
+        html.Label('Prompt', style=label_style),
+        dcc.Input(
+            id='stock-selection-input',
+            type='text',
+            value='中外资加仓持股股数前十的股票',  # default value
+            style=input_style
         ),
         html.Label('StartDate', style=label_style),
         html.Div(
@@ -117,12 +114,15 @@ app.layout = html.Div([
                 style=date_picker_style
             ), style={'width': '100%'}
         ),
-        html.Label('Prompt', style=label_style),
-        dcc.Input(
-            id='stock-selection-input',
-            type='text',
-            value='发生过股权激励的国资股票',  # default value
-            style=input_style
+        html.Label('BacktestFreq', style=label_style),
+        dcc.Dropdown(
+            id='frequency-dropdown',
+            options=[
+                {'label': 'Monthly', 'value': 'M'},
+                {'label': 'Quarterly', 'value': 'Q'}
+            ],
+            value='M',  # default value
+            style={'marginBottom': '20px'}
         ),
         html.Button('GO', id='go-button', n_clicks=0, style=button_style)
     ], style=left_column_style),
@@ -133,21 +133,21 @@ app.layout = html.Div([
     ], style=right_column_style)
 ], style={'display': 'flex', 'justifyContent': 'space-between'})
 
-
-
 @app.callback(
     [Output('value-graph', 'figure'),
      Output('trade-graph', 'figure')],
     [Input('go-button', 'n_clicks')],
-    [State('frequency-dropdown', 'value'),
+    [State('stock-selection-input', 'value'),
      State('start-date-picker', 'date'),
      State('end-date-picker', 'date'),
-     State('stock-selection-input', 'value')]
+     State('frequency-dropdown', 'value')
+     ]
 )
-def update_graphs(n_clicks, frequency, start_date, end_date, stock_selection):
-
+def update_graphs(n_clicks, querying, start_date, end_date, frequency):
     if n_clicks > 0:
-        # TODO: typically define the figure
+        dm = DataManager(querying, start_date, end_date, frequency)
+        dm.fetch_stock_codes()
+        dm.fetch_daily_data()
         value_figure = {
             'data': [],
             'layout': {
@@ -162,8 +162,6 @@ def update_graphs(n_clicks, frequency, start_date, end_date, stock_selection):
         }
         return value_figure, trade_figure
     return {}, {}
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)

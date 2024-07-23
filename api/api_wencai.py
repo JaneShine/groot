@@ -3,7 +3,7 @@ __license__ = 'MIT License'
 
  #================================================================================
 
-# Copyright (c) [2021] [jxxie]
+# Copyright (c) [2024] [jxxie]
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,10 @@ class iFindQuerying:
     def __init__(self, querying):
         self.querying = querying
         self.res = {}
+        self.stk_codes = []
 
     def fetching_stock(self, date):
-        df_stk = pywc.get(query=f'{date}{self.querying}', loop=True)
+        df_stk = pywc.get(query=f'{date} {self.querying}', loop=True)
         self.res[date] = df_stk
+        self.stk_codes += df_stk['股票代码'].to_list()
         return self
