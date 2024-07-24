@@ -72,7 +72,7 @@ class Backtest(TargetTrade):
                         if trade_value < 0:  # close the position first
                             self.sell(di, ii, trade_value, trade_price, self.position[di-1][ii])
                         elif trade_value > 0:
-                            self.buy(di, ii, trade_value, trade_price, self.cash[di-1])  # TODO: cash remained ranking and iteration!
+                            self.buy(di, ii, trade_value, trade_price, self.cash[di-1])  # TODO: cash remained ranking and iteration! close first and the open
                         else:
                             self.hold(di, ii)
                     else:

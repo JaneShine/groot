@@ -44,6 +44,7 @@ class TradeBase:
             self.multi = int(self.params['multi'])
         self.quote = quote
         self.booksize = booksize
+        self.cash_remained = self.booksize
         return
     
     def buy(self, idate, iasset, trade_val, price, cash_remained):
@@ -92,12 +93,10 @@ class TradeBase:
         '''
         
         self.position[idate + 1][iasset] = self.position[idate][iasset] + trade_volume
-        if self.cash[idate + 1] == 0:
-            self.cash[idate + 1] = self.cash[idate] -  trade_volume * trade_price - \
-                                    trade_volume * trade_price * self.commission
-        else:
-            self.cash[idate + 1] += -  trade_volume * trade_price - \
-                                    trade_volume * trade_price * self.commission
+        # Consider the sequential trading scenarios of multiple assets, separately extract the retained cash for iteration
+        self.cash_remained += -  trade_volume * trade_price - \
+                                    trade_volume * trade_price * self.commission  
+        self.cash[idate + 1] = self.cash_remained
         self.trade_val[idate][iasset] = trade_volume * trade_price
         self.trade_price[idate][iasset] = trade_price if trade_volume > 1e-5 else np.nan
         self.trade_volume[idate][iasset] = trade_volume
