@@ -2,7 +2,7 @@ __author__ = 'jxxie'
 __license__ = 'MIT License'
 
 #================================================================================
-# Copyright (c) [2021] [jxxie]
+# Copyright (c) [2024] [jxxie]
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,22 @@ __license__ = 'MIT License'
 
 import numpy as np
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(message)s',
+                    filename='./trade.log',
+                    filemode='a')
 
 
 class TradeBase:
-    """ A trade base declared kinds of trading executions, and for stk&etf only
+    """ A trade base declared kinds of trading executions, and for stk&etf only.
+    `idate`or `di` represents the trading operation day, with the default being trading at the close.
+    After a successful trade, this class will update the balance sheet for the next day's close and record the trade info.
     """
     def __init__(self, quote, booksize, params, *args, **kwargs):
         self.params = params  # this is for position adjustion weights and trading commissions dict
         if self.params is None:
             self.commission = 0.0005
-            self.partial_traded = False
+            self.partial_traded = True  # partial execution of trades when cash or position is insufficient
             self.multi = 100  # default stk cn
         else:
             self.commission = float(self.params['commission'])
@@ -47,23 +51,25 @@ class TradeBase:
         self.cash_remained = self.booksize
         return
     
-    def buy(self, idate, iasset, trade_val, price, cash_remained):
+    def buy(self, idate, iasset, trade_val, price):
         '''signal == 1 trade_val is target trading market value WITH DIRECTION
         '''
-        if trade_val > cash_remained:
+        if trade_val > self.cash_remained:
             if  self.partial_traded:
-                trade_val = cash_remained
-                logging.warning(f'[WARNIG] date {idate}, asset {iasset}: only have cash of {cash_remained}, partial traded!')
+                trade_val = self.cash_remained
+                logging.warning(f'[WARNIG] date {idate}, asset {iasset}: only have cash of {self.cash_remained}, partial traded!')
             else:
-                raise ValueError(f'trade value of {trade_val} exceeds cash remained:{cash_remained}!')
+                raise ValueError(f'[ERROR] date {idate}, asset {iasset}: trade value of {trade_val} exceeds cash remained:{self.cash_remained}!')
         
         trade_volume = np.floor(trade_val / price // self.multi) * self.multi 
         self.update_balancesheet(idate, iasset, trade_volume, price)
+        logging.info(f'[INFO] date {idate}, asset {iasset}, trade_value {trade_val}')
         return
 
-    def sell(self, idate, iasset, trade_val, price, pos):
+    def sell(self, idate, iasset, trade_val, price):
         '''trade_val is target trading market value WITH DIRECTION
         '''
+        pos = self.position[idate][iasset]
         if pos < 1e-5:
             raise KeyError(f'current position of {iasset} is 0, sell is forbiden!')
         
@@ -78,6 +84,7 @@ class TradeBase:
                 f'only have position of {pos}, require {trade_volume}')
 
         self.update_balancesheet(idate, iasset, trade_volume, price)
+        logging.info(f'[INFO] date {idate}, asset {iasset}, trade_value {trade_val}...')
         return 
     
     def hold(self, idate, iasset):
@@ -91,9 +98,8 @@ class TradeBase:
            NOTICE: 
            `self.position`, `self.cash`,`self.trade_val`,`self.trade_price`,`self.trade_volume`, `self.market_val`,`self.pnl`,should be define in subclass
         '''
-        
         self.position[idate + 1][iasset] = self.position[idate][iasset] + trade_volume
-        # Consider the sequential trading scenarios of multiple assets, separately extract the retained cash for iteration
+        # consider the sequential trading scenarios of multiple assets, separately extract the retained cash for iteration
         self.cash_remained += -  trade_volume * trade_price - \
                                     trade_volume * trade_price * self.commission  
         self.cash[idate + 1] = self.cash_remained
@@ -102,11 +108,12 @@ class TradeBase:
         self.trade_volume[idate][iasset] = trade_volume
         self.market_val[idate + 1][iasset] = self.position[idate + 1][iasset] *\
                                              self.quote[idate + 1][iasset]
-        
-        self.pnl[idate + 1][iasset] = self.pnl[idate][iasset] + \
-                                    (self.position[idate][iasset] * (self.quote[idate + 1][iasset] - self.quote[idate][iasset])) + \
-                                    (trade_volume * (self.quote[idate + 1][iasset] - trade_price))
-                                    
+        if np.isnan(self.quote[idate + 1][iasset]) or np.isnan(self.quote[idate][iasset]):  # suspension of trading
+            self.pnl[idate + 1][iasset] = self.pnl[idate][iasset]
+        else:
+            self.pnl[idate + 1][iasset] = self.pnl[idate][iasset] + \
+                                        (self.position[idate][iasset] * (self.quote[idate + 1][iasset] - self.quote[idate][iasset])) + \
+                                        (trade_volume * (self.quote[idate + 1][iasset] - trade_price))
         return
 
 
@@ -150,21 +157,25 @@ class TargetTrade(TradeBase):
         self.trade_volume = np.zeros(self.var_tuple)
         return
     
-    def buy(self, idate, iasset, trade_val):
+    def target_buy(self, idate, iasset, trade_val):
         price = self.quote[idate][iasset]
-        cash_remained = self.cash[idate]
-        super().buy(idate, iasset, trade_val, price, cash_remained)
+        if np.isnan(price):
+            super().hold(idate, iasset)  # suspension of trading
+        else:
+            super().buy(idate, iasset, trade_val, price)
         return
     
-    def sell(self, idate, iasset, trade_val):
+    def target_sell(self, idate, iasset, trade_val):
         '''trade_val is target trading market value WITH DIRECTION
         '''
-        pos = self.position[idate][iasset]
         price = self.quote[idate][iasset]
-        super().sell(idate, iasset, trade_val, price, pos)
+        if np.isnan(price):
+            super().hold(idate, iasset)  # suspension of trading
+        else:
+            super().sell(idate, iasset, trade_val, price)
         return 
 
-    def hold(self, idate, iasset):
+    def target_hold(self, idate, iasset):
         super().hold(idate, iasset)
         return
 

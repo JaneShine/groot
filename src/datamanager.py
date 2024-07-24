@@ -69,7 +69,7 @@ class DataManager:
             _slice = self.robot.res[k]
             _slice['stk_idx'] = self.quote_matrix.columns.get_indexer(_slice['股票代码'].to_list())
         self.quote_matrix.columns
-        # offset tradingdate mapping
+        # offset tradingdate mapping: find the nearlest date can be traded
         self.trading_date_mapping = {}
         date_list = list(self.robot.res.keys())
         for idate in date_list:
@@ -79,9 +79,14 @@ class DataManager:
             self.trading_date_mapping[idx] = idate
         self.robot.res['mapping'] = self.trading_date_mapping
         # backtest go
-        brain = Backtest(quote=self.quote)
-        brain.order_execution(self.robot.res)
+        self.brain = Backtest(quote=self.quote)
+        self.brain.order_execution(self.robot.res)
         return 
+    
+    def gen_report(self):
+        df_report = pd.DataFrame()
+        df_report['pnl'] = pd.DataFrame(self.brain.pnl).sum(axis=1)
+        return df_report
 
 if __name__ == '__main__':
     # a = BackTest(quote)
@@ -90,3 +95,4 @@ if __name__ == '__main__':
     dm.fetch_stock_codes()
     dm.fetch_daily_data()
     dm.run_backtest()
+    df_report = dm.gen_report()

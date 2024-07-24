@@ -57,30 +57,41 @@ class Backtest(TargetTrade):
     
     def order_execution(self, stk_dict):
         operating_date = stk_dict['mapping']
-        for di in range(1, self.quote.shape[0]):
+        self.cash[1] = self.booksize
+        for di in range(1, self.quote.shape[0]-1):
             if di in operating_date.keys():
                 date_key = operating_date[di]
                 stk_list = stk_dict[date_key].stk_idx.to_list()
-                previous_booksize = self.cash[di-1] + sum(self.market_val[di-1])
-                target_value = previous_booksize / len(stk_list)
-                pdb.set_trace()
-                previous_mktv = self.position[di-1] * self.quote[di-1]
-
-                for ii in range(self.quote.shape[1]):
-                    if ii in stk_list:
-                        trade_value = target_value - previous_mktv
-                        trade_price = self.quote[di][ii]
-                        if trade_value < 0:  # close the position first
-                            self.sell(di, ii, trade_value, trade_price, self.position[di-1][ii])
-                        elif trade_value > 0:
-                            self.buy(di, ii, trade_value, trade_price, self.cash[di-1])  # TODO: cash remained ranking and iteration! close first and the open
-                        else:
-                            self.hold(di, ii)
-                    else:
-                        self.hold(di, ii)
+                now_booksize = self.cash[di-1] + sum(self.market_val[di-1])
+                target_value = now_booksize / len(stk_list)
+                now_mktv = self.position[di-1] * self.quote[di-1]
+                now_stk_list = np.where(now_mktv> 0)[0]
+                # calc trade value for different asset
+                trade_value_array = np.zeros(len(now_mktv))
+                diff = set(now_stk_list) - set(stk_list)
+                close_idx = np.array(list(diff))
+                stk_list_new = np.array(list(set(stk_list + list(now_stk_list))))
+                trade_value_array[stk_list_new] = target_value - now_mktv[stk_list_new]
+                if len(close_idx):
+                    trade_value_array[close_idx] = - now_mktv[close_idx]  # close position when need
+                else:
+                    pass
+                # locate trade operate type
+                sell_idx = np.where(trade_value_array < 0)[0]
+                buy_idx = np.where(trade_value_array > 0)[0]
+                hold_idx = np.where(trade_value_array == 0)[0]
+                # close the position first to release cash
+                for ii in sell_idx:
+                    trade_value = trade_value_array[ii]
+                    self.target_sell(di, ii, trade_value)
+                for ii in buy_idx:
+                    trade_value = trade_value_array[ii]
+                    self.target_buy(di, ii, trade_value)
+                for ii in hold_idx:
+                    self.target_hold(di, ii)
             else:
                 for ii in range(self.quote.shape[1]):
-                    self.hold(di, ii)
+                    self.target_hold(di, ii)
         return
 
 

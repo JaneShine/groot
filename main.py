@@ -1,4 +1,4 @@
-from src.report import app
+from src.dash_app import app
 
 
 
