@@ -63,10 +63,11 @@ class Backtest(TargetTrade):
                 stk_list = stk_dict[date_key].stk_idx.to_list()
                 previous_booksize = self.cash[di-1] + sum(self.market_val[di-1])
                 target_value = previous_booksize / len(stk_list)
+                pdb.set_trace()
+                previous_mktv = self.position[di-1] * self.quote[di-1]
 
-                for ii in self.quote.shape[1]:
+                for ii in range(self.quote.shape[1]):
                     if ii in stk_list:
-                        previous_mktv = self.position[di-1][ii] * self.quote[di-1][ii]
                         trade_value = target_value - previous_mktv
                         trade_price = self.quote[di][ii]
                         if trade_value < 0:  # close the position first
@@ -78,7 +79,8 @@ class Backtest(TargetTrade):
                     else:
                         self.hold(di, ii)
             else:
-                self.hold(di, ii)
+                for ii in range(self.quote.shape[1]):
+                    self.hold(di, ii)
         return
 
 

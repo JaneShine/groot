@@ -104,7 +104,7 @@ class TradeBase:
                                              self.quote[idate + 1][iasset]
         
         self.pnl[idate + 1][iasset] = self.pnl[idate][iasset] + \
-                                    (self.position[idate] * (self.quote[idate + 1][iasset] - self.quote[idate][iasset])) + \
+                                    (self.position[idate][iasset] * (self.quote[idate + 1][iasset] - self.quote[idate][iasset])) + \
                                     (trade_volume * (self.quote[idate + 1][iasset] - trade_price))
                                     
         return
