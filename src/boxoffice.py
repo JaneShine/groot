@@ -21,7 +21,7 @@ __license__ = 'MIT License'
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
- #================================================================================
+#================================================================================
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -31,6 +31,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import datetime
 from src.orchestrator import Orchestrator
+from src.picture import add_figure
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 app = dash.Dash(__name__)
 
@@ -146,24 +149,16 @@ app.layout = html.Div([
      ]
 )
 def update_graphs(n_clicks, querying, start_date, end_date, frequency):
+    # TODO: add params of details
     if n_clicks > 0:
-        # orch = DataManager(querying, start_date, end_date, frequency)
-        # orch.fetch_stock_codes()
-        # orch.fetch_daily_data()
-        # orch.run_backtest()
-        # df_report = orch.gen_report()
-        value_figure = {
-            'data': [],
-            'layout': {
-                'title': 'Backtest Value'
-            }
-        }
-        trade_figure = {
-            'data': [],
-            'layout': {
-                'title': 'Trade Actions'
-            }
-        }
+        orch = Orchestrator(querying, start_date, end_date, frequency)
+        orch.fetch_stock_codes()
+        orch.fetch_daily_data()
+        orch.run_backtest()
+        df_report = orch.gen_report(save=True)
+        value_figure , trade_figure = add_figure(df_report)
+        n_clicks = 0
+        logging.info('[INFO] Result is now showing in app...')
         return value_figure, trade_figure
     return {}, {}
 

@@ -21,15 +21,16 @@ __license__ = 'MIT License'
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
- #================================================================================
+#================================================================================
 
 import numpy as np
 import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(message)s',
-                    filename='./trade.log',
-                    filemode='a')
-
+                    handlers=[
+                        logging.FileHandler('./trade.log', mode='a'),
+                        logging.StreamHandler()
+                    ])
 
 class TradeBase:
     """ A trade base declared kinds of trading executions, and for stk&etf only.

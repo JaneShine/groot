@@ -21,7 +21,7 @@ __license__ = 'MIT License'
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
- #================================================================================
+#================================================================================
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -32,7 +32,8 @@ from api.api_wencai import iFindQuerying
 from src.utils import date_resample
 import tushare as ts
 from tqdm import tqdm
-import pdb
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 class Orchestrator:
@@ -47,6 +48,7 @@ class Orchestrator:
         return
 
     def fetch_stock_codes(self):
+        logging.info('[INFO] Querying understanding...')
         for idate in tqdm(self.querying_date):
             self.robot.fetching_stock(idate)
         return
@@ -54,6 +56,7 @@ class Orchestrator:
     def fetch_daily_data(self):
         self.codes = set(self.robot.stk_codes)
         quote_list = []
+        logging.info('[INFO] Fetching stk quote...')
         for icode in self.codes:
             _quote = self.pro.daily(ts_code=icode,
                                     start_date=self.start,
@@ -66,6 +69,7 @@ class Orchestrator:
         return 
 
     def run_backtest(self):
+        logging.info('[INFO] Run backtest...')
         # mark idx for robot.res
         for k in self.robot.res.keys():
             _slice = self.robot.res[k]
@@ -84,6 +88,7 @@ class Orchestrator:
         # backtest go
         self.brain = Playback(quote=self.quote)
         self.brain.order_execution(self.robot.res)
+        logging.info('[INFO] Backtest Done...')
         return 
     
     def gen_report(self, save=True):
@@ -93,18 +98,9 @@ class Orchestrator:
                             .fillna(method='ffill').sum(axis=1)
         df_report['cash_remained'] = self.brain.cash
         df_report['trade_value'] = pd.DataFrame(self.brain.trade_val).sum(axis=1)
-        df_report['booksize'] = df_report.mktv + df_report.cash
+        df_report['booksize'] = df_report.mktv + df_report.cash_remained
         df_report.index = self.quote_matrix.index
+        df_report.index = pd.to_datetime(df_report.index, format='%Y%m%d')
         if save and not df_report.empty:
-            df_report.to_csv('backtest_rpt_data.csv')
+            df_report.to_csv('rpt_data.csv')
         return df_report
-
-
-if __name__ == '__main__':
-    # a = BackTest(quote)
-    # oa.oorder_execution(b.res)
-    orch =Orchestrator('中外资加仓持股股数前十的股票', '20190101', '20200101', 'M')
-    orch.fetch_stock_codes()
-    orch.fetch_daily_data()
-    orch.run_backtest()
-    df_report = orch.gen_report(save=True)
