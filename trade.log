@@ -1678,3 +1678,241 @@
 2024-07-25 13:47:55,583 - [INFO] date 243, asset 39, trade_value 108590.5180000001
 2024-07-25 13:47:55,583 - [INFO] Backtest Done...
 2024-07-25 13:47:55,618 - [INFO] Result is now showing in app...
+2024-07-25 13:52:29,773 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 13:52:33,596 - [INFO] Querying understanding...
+2024-07-25 13:53:00,357 - [INFO] Fetching stk quote...
+2024-07-25 13:53:11,482 - [INFO] Run backtest...
+2024-07-25 13:53:14,711 - [INFO] Querying understanding...
+2024-07-25 13:53:59,972 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 13:54:03,352 - [INFO] Querying understanding...
+2024-07-25 13:56:14,588 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 13:56:19,008 - [INFO] Querying understanding...
+2024-07-25 13:56:54,836 - [INFO] Querying understanding...
+2024-07-25 13:57:20,226 - [INFO] Fetching stk quote...
+2024-07-25 13:57:31,886 - [INFO] Run backtest...
+2024-07-25 14:03:57,604 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 14:04:00,858 - [INFO] Querying understanding...
+2024-07-25 14:05:57,014 - [INFO] Querying understanding...
+2024-07-25 14:06:26,760 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 14:06:29,998 - [INFO] Querying understanding...
+2024-07-25 14:08:20,594 - Dash is running on http://127.0.0.1:8050/
+
+2024-07-25 14:08:27,826 - [INFO] Querying understanding...
+2024-07-25 14:09:07,527 - [INFO] Fetching stk quote...
+2024-07-25 14:09:19,586 - [INFO] Run backtest...
+2024-07-25 14:10:06,085 - [INFO] Querying understanding...
+2024-07-25 14:11:14,369 - [INFO] Querying understanding...
+2024-07-25 14:11:40,302 - [INFO] Fetching stk quote...
+2024-07-25 14:11:52,066 - [INFO] Run backtest...
+2024-07-25 14:11:52,079 - [INFO] date 2019.01.31, asset 600000.SH, trade_value 100000.0
+2024-07-25 14:11:52,079 - [INFO] date 2019.01.31, asset 600029.SH, trade_value 100000.0
+2024-07-25 14:11:52,079 - [INFO] date 2019.01.31, asset 600036.SH, trade_value 100000.0
+2024-07-25 14:11:52,080 - [INFO] date 2019.01.31, asset 600050.SH, trade_value 100000.0
+2024-07-25 14:11:52,080 - [INFO] date 2019.01.31, asset 601166.SH, trade_value 100000.0
+2024-07-25 14:11:52,080 - [INFO] date 2019.01.31, asset 601169.SH, trade_value 100000.0
+2024-07-25 14:11:52,081 - [INFO] date 2019.01.31, asset 601328.SH, trade_value 100000.0
+2024-07-25 14:11:52,081 - [INFO] date 2019.01.31, asset 601600.SH, trade_value 100000.0
+2024-07-25 14:11:52,081 - [INFO] date 2019.01.31, asset 601668.SH, trade_value 100000.0
+2024-07-25 14:11:52,082 - [INFO] date 2019.01.31, asset 601939.SH, trade_value 100000.0
+2024-07-25 14:11:52,087 - [INFO] date 2019.02.28, asset 600029.SH, trade_value -9675.202599999975
+2024-07-25 14:11:52,088 - [INFO] date 2019.02.28, asset 600050.SH, trade_value -14907.202600000004
+2024-07-25 14:11:52,088 - [INFO] date 2019.02.28, asset 601600.SH, trade_value -8278.20259999999
+2024-07-25 14:11:52,089 - [INFO] date 2019.02.28, asset 600000.SH, trade_value 845.7974000000104
+2024-07-25 14:11:52,089 - [INFO] date 2019.02.28, asset 600036.SH, trade_value 3050.7974000000104
+2024-07-25 14:11:52,089 - [INFO] date 2019.02.28, asset 601166.SH, trade_value 4484.79740000001
+2024-07-25 14:11:52,090 - [INFO] date 2019.02.28, asset 601169.SH, trade_value 2314.7974000000104
+2024-07-25 14:11:52,090 - [INFO] date 2019.02.28, asset 601328.SH, trade_value 7984.79740000001
+2024-07-25 14:11:52,090 - [INFO] date 2019.02.28, asset 601668.SH, trade_value 8989.79740000001
+2024-07-25 14:11:52,091 - [INFO] date 2019.02.28, asset 601939.SH, trade_value 8639.79740000001
+2024-07-25 14:11:52,099 - [INFO] date 2019.03.31, asset 600000.SH, trade_value -104904.0
+2024-07-25 14:11:52,100 - [INFO] date 2019.03.31, asset 600029.SH, trade_value -110295.00000000001
+2024-07-25 14:11:52,100 - [INFO] date 2019.03.31, asset 600036.SH, trade_value -5494.619399999996
+2024-07-25 14:11:52,101 - [INFO] date 2019.03.31, asset 600050.SH, trade_value -112035.0
+2024-07-25 14:11:52,101 - [INFO] date 2019.03.31, asset 601166.SH, trade_value -2820.6194000000105
+2024-07-25 14:11:52,115 - [INFO] date 2019.03.31, asset 601169.SH, trade_value -105400.0
+2024-07-25 14:11:52,115 - [INFO] date 2019.03.31, asset 601328.SH, trade_value -107328.0
+2024-07-25 14:11:52,116 - [INFO] date 2019.03.31, asset 601600.SH, trade_value -782.6194000000105
+2024-07-25 14:11:52,117 - [INFO] date 2019.03.31, asset 601668.SH, trade_value -108324.0
+2024-07-25 14:11:52,117 - [INFO] date 2019.03.31, asset 601939.SH, trade_value -106335.0
+2024-07-25 14:11:52,117 - [INFO] date 2019.03.31, asset 000001.SZ, trade_value 109833.3806
+2024-07-25 14:11:52,117 - [INFO] date 2019.03.31, asset 000157.SZ, trade_value 109833.3806
+2024-07-25 14:11:52,117 - [INFO] date 2019.03.31, asset 000333.SZ, trade_value 109833.3806
+2024-07-25 14:11:52,118 - [INFO] date 2019.03.31, asset 000651.SZ, trade_value 109833.3806
+2024-07-25 14:11:52,118 - [INFO] date 2019.03.31, asset 300382.SZ, trade_value 109833.3806
+2024-07-25 14:11:52,118 - [INFO] date 2019.03.31, asset 600276.SH, trade_value 109833.3806
+2024-07-25 14:11:52,118 - [INFO] date 2019.03.31, asset 601225.SH, trade_value 109833.3806
+2024-07-25 14:11:52,126 - [INFO] date 2019.04.30, asset 000001.SZ, trade_value -5809.005449999982
+2024-07-25 14:11:52,126 - [INFO] date 2019.04.30, asset 000157.SZ, trade_value -5857.005449999997
+2024-07-25 14:11:52,127 - [INFO] date 2019.04.30, asset 600000.SH, trade_value -2296.0
+2024-07-25 14:11:52,127 - [INFO] date 2019.04.30, asset 600029.SH, trade_value -2481.0
+2024-07-25 14:11:52,127 - [INFO] date 2019.04.30, asset 600036.SH, trade_value -5368.005449999982
+2024-07-25 14:11:52,128 - [INFO] date 2019.04.30, asset 600050.SH, trade_value -3355.0
+2024-07-25 14:11:52,128 - [INFO] date 2019.04.30, asset 601166.SH, trade_value -7363.005449999997
+2024-07-25 14:11:52,129 - [INFO] date 2019.04.30, asset 601169.SH, trade_value -1896.0
+2024-07-25 14:11:52,129 - [INFO] date 2019.04.30, asset 601328.SH, trade_value -1872.0
+2024-07-25 14:11:52,129 - [INFO] date 2019.04.30, asset 601668.SH, trade_value -2456.0
+2024-07-25 14:11:52,129 - [INFO] date 2019.04.30, asset 601939.SH, trade_value -3705.0
+2024-07-25 14:11:52,130 - [INFO] date 2019.04.30, asset 000333.SZ, trade_value 8600.994550000018
+2024-07-25 14:11:52,130 - [INFO] date 2019.04.30, asset 000651.SZ, trade_value 111220.99455000002
+2024-07-25 14:11:52,130 - [INFO] date 2019.04.30, asset 300382.SZ, trade_value 15600.994550000018
+2024-07-25 14:11:52,131 - [INFO] date 2019.04.30, asset 600276.SH, trade_value 6708.994550000032
+2024-07-25 14:11:52,131 - [INFO] date 2019.04.30, asset 601225.SH, trade_value 9330.994550000018
+2024-07-25 14:11:52,131 - [WARNIG] date 78, asset 33: only have cash of 804.6520000001437, partial traded!
+2024-07-25 14:11:52,131 - [INFO] date 2019.04.30, asset 601600.SH, trade_value 4442.994550000032
+2024-07-25 14:11:52,139 - [INFO] date 2019.05.31, asset 000157.SZ, trade_value -12408.955649999974
+2024-07-25 14:11:52,139 - [INFO] date 2019.05.31, asset 600000.SH, trade_value -1111.0
+2024-07-25 14:11:52,139 - [INFO] date 2019.05.31, asset 600029.SH, trade_value -715.0
+2024-07-25 14:11:52,140 - [INFO] date 2019.05.31, asset 600036.SH, trade_value -3066.9556499999744
+2024-07-25 14:11:52,140 - [INFO] date 2019.05.31, asset 601169.SH, trade_value -585.0
+2024-07-25 14:11:52,141 - [INFO] date 2019.05.31, asset 601225.SH, trade_value -4181.955649999974
+2024-07-25 14:11:52,141 - [INFO] date 2019.05.31, asset 601328.SH, trade_value -598.0
+2024-07-25 14:11:52,141 - [INFO] date 2019.05.31, asset 601600.SH, trade_value -754.9556500000035
+2024-07-25 14:11:52,142 - [INFO] date 2019.05.31, asset 601939.SH, trade_value -699.0
+2024-07-25 14:11:52,142 - [INFO] date 2019.05.31, asset 000001.SZ, trade_value 10155.044350000011
+2024-07-25 14:11:52,142 - [INFO] date 2019.05.31, asset 000333.SZ, trade_value 2848.044350000011
+2024-07-25 14:11:52,143 - [INFO] date 2019.05.31, asset 000651.SZ, trade_value 813.044350000011
+2024-07-25 14:11:52,143 - [INFO] date 2019.05.31, asset 300382.SZ, trade_value 4633.044350000011
+2024-07-25 14:11:52,143 - [INFO] date 2019.05.31, asset 600276.SH, trade_value 1446.044350000011
+2024-07-25 14:11:52,144 - [WARNIG] date 98, asset 25: only have cash of 4410.45400000014, partial traded!
+2024-07-25 14:11:52,144 - [INFO] date 2019.05.31, asset 601166.SH, trade_value 4613.0443499999965
+2024-07-25 14:11:52,151 - [INFO] date 2019.06.30, asset 000001.SZ, trade_value -119886.0
+2024-07-25 14:11:52,152 - [WARNIG] date 118, asset 2: only have position of 20300.0, partial traded!
+2024-07-25 14:11:52,152 - [INFO] date 2019.06.30, asset 000157.SZ, trade_value -122003.0
+2024-07-25 14:11:52,152 - [INFO] date 2019.06.30, asset 000333.SZ, trade_value -108906.0
+2024-07-25 14:11:52,153 - [INFO] date 2019.06.30, asset 000651.SZ, trade_value -110000.0
+2024-07-25 14:11:52,153 - [INFO] date 2019.06.30, asset 300382.SZ, trade_value -105118.0
+2024-07-25 14:11:52,153 - [INFO] date 2019.06.30, asset 600000.SH, trade_value -1168.0
+2024-07-25 14:11:52,154 - [INFO] date 2019.06.30, asset 600029.SH, trade_value -772.0
+2024-07-25 14:11:52,154 - [INFO] date 2019.06.30, asset 600036.SH, trade_value -115135.99999999999
+2024-07-25 14:11:52,154 - [INFO] date 2019.06.30, asset 600276.SH, trade_value -112200.0
+2024-07-25 14:11:52,155 - [INFO] date 2019.06.30, asset 601166.SH, trade_value -109740.0
+2024-07-25 14:11:52,155 - [INFO] date 2019.06.30, asset 601225.SH, trade_value -111804.0
+2024-07-25 14:11:52,155 - [INFO] date 2019.06.30, asset 601600.SH, trade_value -103096.0
+2024-07-25 14:11:52,155 - [INFO] date 2019.06.30, asset 000069.SZ, trade_value 112072.36970000001
+2024-07-25 14:11:52,156 - [INFO] date 2019.06.30, asset 000425.SZ, trade_value 112072.36970000001
+2024-07-25 14:11:52,156 - [INFO] date 2019.06.30, asset 002027.SZ, trade_value 112072.36970000001
+2024-07-25 14:11:52,156 - [INFO] date 2019.06.30, asset 002602.SZ, trade_value 112072.36970000001
+2024-07-25 14:11:52,157 - [INFO] date 2019.06.30, asset 600025.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,157 - [INFO] date 2019.06.30, asset 600717.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,157 - [INFO] date 2019.06.30, asset 601006.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,158 - [INFO] date 2019.06.30, asset 601009.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,158 - [INFO] date 2019.06.30, asset 601515.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,158 - [WARNIG] date 118, asset 34: only have cash of 100427.43850000016, partial traded!
+2024-07-25 14:11:52,159 - [INFO] date 2019.06.30, asset 601668.SH, trade_value 112072.36970000001
+2024-07-25 14:11:52,167 - [INFO] date 2019.07.31, asset 000001.SZ, trade_value -1437.0
+2024-07-25 14:11:52,167 - [INFO] date 2019.07.31, asset 000069.SZ, trade_value -1024.2749999999796
+2024-07-25 14:11:52,167 - [INFO] date 2019.07.31, asset 000333.SZ, trade_value -5520.0
+2024-07-25 14:11:52,168 - [INFO] date 2019.07.31, asset 000425.SZ, trade_value -1651.2749999999796
+2024-07-25 14:11:52,168 - [INFO] date 2019.07.31, asset 000651.SZ, trade_value -11016.0
+2024-07-25 14:11:52,169 - [INFO] date 2019.07.31, asset 300382.SZ, trade_value -1665.0
+2024-07-25 14:11:52,169 - [INFO] date 2019.07.31, asset 600000.SH, trade_value -1186.0
+2024-07-25 14:11:52,169 - [INFO] date 2019.07.31, asset 600025.SH, trade_value -15440.27499999998
+2024-07-25 14:11:52,170 - [INFO] date 2019.07.31, asset 600029.SH, trade_value -735.0
+2024-07-25 14:11:52,170 - [INFO] date 2019.07.31, asset 600036.SH, trade_value -3677.0000000000005
+2024-07-25 14:11:52,170 - [INFO] date 2019.07.31, asset 600276.SH, trade_value -6695.999999999999
+2024-07-25 14:11:52,170 - [INFO] date 2019.07.31, asset 601009.SH, trade_value -711.2749999999796
+2024-07-25 14:11:52,171 - [INFO] date 2019.07.31, asset 601166.SH, trade_value -1950.0
+2024-07-25 14:11:52,171 - [INFO] date 2019.07.31, asset 601225.SH, trade_value -1864.0
+2024-07-25 14:11:52,171 - [INFO] date 2019.07.31, asset 601600.SH, trade_value -2262.0
+2024-07-25 14:11:52,172 - [INFO] date 2019.07.31, asset 002027.SZ, trade_value 8858.72500000002
+2024-07-25 14:11:52,172 - [INFO] date 2019.07.31, asset 002602.SZ, trade_value 15269.72500000002
+2024-07-25 14:11:52,172 - [INFO] date 2019.07.31, asset 600717.SH, trade_value 7078.72500000002
+2024-07-25 14:11:52,172 - [INFO] date 2019.07.31, asset 601006.SH, trade_value 7951.72500000002
+2024-07-25 14:11:52,173 - [INFO] date 2019.07.31, asset 601515.SH, trade_value 5125.72500000002
+2024-07-25 14:11:52,173 - [WARNIG] date 140, asset 34: only have cash of 5050.774000000166, partial traded!
+2024-07-25 14:11:52,173 - [INFO] date 2019.07.31, asset 601668.SH, trade_value 12550.72500000002
+2024-07-25 14:11:52,182 - [INFO] date 2019.08.31, asset 000651.SZ, trade_value -5550.0
+2024-07-25 14:11:52,182 - [INFO] date 2019.08.31, asset 002027.SZ, trade_value -11644.758199999997
+2024-07-25 14:11:52,183 - [INFO] date 2019.08.31, asset 600000.SH, trade_value -1128.0
+2024-07-25 14:11:52,183 - [INFO] date 2019.08.31, asset 600025.SH, trade_value -1870.758199999982
+2024-07-25 14:11:52,183 - [INFO] date 2019.08.31, asset 600717.SH, trade_value -3814.7581999999966
+2024-07-25 14:11:52,184 - [INFO] date 2019.08.31, asset 601006.SH, trade_value -5434.758199999997
+2024-07-25 14:11:52,184 - [INFO] date 2019.08.31, asset 601225.SH, trade_value -890.0
+2024-07-25 14:11:52,184 - [INFO] date 2019.08.31, asset 000069.SZ, trade_value 2014.2418000000034
+2024-07-25 14:11:52,185 - [INFO] date 2019.08.31, asset 000425.SZ, trade_value 7183.241800000003
+2024-07-25 14:11:52,185 - [INFO] date 2019.08.31, asset 002602.SZ, trade_value 4097.241800000003
+2024-07-25 14:11:52,185 - [INFO] date 2019.08.31, asset 601009.SH, trade_value 3829.2418000000034
+2024-07-25 14:11:52,186 - [INFO] date 2019.08.31, asset 601515.SH, trade_value 3889.2418000000034
+2024-07-25 14:11:52,186 - [WARNIG] date 163, asset 34: only have cash of 2813.656000000168, partial traded!
+2024-07-25 14:11:52,186 - [INFO] date 2019.08.31, asset 601668.SH, trade_value 9656.241800000003
+2024-07-25 14:11:52,193 - [WARNIG] date 182, asset 1: only have position of 15700.0, partial traded!
+2024-07-25 14:11:52,194 - [INFO] date 2019.09.30, asset 000069.SZ, trade_value -111470.0
+2024-07-25 14:11:52,194 - [WARNIG] date 182, asset 4: only have position of 25000.0, partial traded!
+2024-07-25 14:11:52,194 - [INFO] date 2019.09.30, asset 000425.SZ, trade_value -112000.00000000001
+2024-07-25 14:11:52,195 - [INFO] date 2019.09.30, asset 000651.SZ, trade_value -5690.0
+2024-07-25 14:11:52,195 - [WARNIG] date 182, asset 7: only have position of 20200.0, partial traded!
+2024-07-25 14:11:52,196 - [INFO] date 2019.09.30, asset 002027.SZ, trade_value -107868.0
+2024-07-25 14:11:52,196 - [INFO] date 2019.09.30, asset 002602.SZ, trade_value -107640.00000000001
+2024-07-25 14:11:52,196 - [INFO] date 2019.09.30, asset 600000.SH, trade_value -1190.0
+2024-07-25 14:11:52,197 - [INFO] date 2019.09.30, asset 600025.SH, trade_value -100300.0
+2024-07-25 14:11:52,197 - [INFO] date 2019.09.30, asset 600717.SH, trade_value -108944.0
+2024-07-25 14:11:52,197 - [INFO] date 2019.09.30, asset 601006.SH, trade_value -106540.0
+2024-07-25 14:11:52,198 - [INFO] date 2019.09.30, asset 601009.SH, trade_value -117956.99999999999
+2024-07-25 14:11:52,198 - [INFO] date 2019.09.30, asset 601225.SH, trade_value -877.9999999999999
+2024-07-25 14:11:52,198 - [INFO] date 2019.09.30, asset 601515.SH, trade_value -103406.0
+2024-07-25 14:11:52,198 - [WARNIG] date 182, asset 34: only have position of 18400.0, partial traded!
+2024-07-25 14:11:52,199 - [INFO] date 2019.09.30, asset 601668.SH, trade_value -100648.0
+2024-07-25 14:11:52,199 - [INFO] date 2019.09.30, asset 000001.SZ, trade_value 108456.3266
+2024-07-25 14:11:52,199 - [INFO] date 2019.09.30, asset 002475.SZ, trade_value 108456.3266
+2024-07-25 14:11:52,199 - [INFO] date 2019.09.30, asset 600031.SH, trade_value 108456.3266
+2024-07-25 14:11:52,200 - [INFO] date 2019.09.30, asset 601229.SH, trade_value 108456.3266
+2024-07-25 14:11:52,200 - [INFO] date 2019.09.30, asset 601288.SH, trade_value 108456.3266
+2024-07-25 14:11:52,200 - [INFO] date 2019.09.30, asset 601689.SH, trade_value 108456.3266
+2024-07-25 14:11:52,200 - [INFO] date 2019.09.30, asset 601818.SH, trade_value 108456.3266
+2024-07-25 14:11:52,201 - [INFO] date 2019.09.30, asset 601933.SH, trade_value 108456.3266
+2024-07-25 14:11:52,201 - [INFO] date 2019.09.30, asset 603259.SH, trade_value 108456.3266
+2024-07-25 14:11:52,201 - [WARNIG] date 182, asset 41: only have cash of 107341.89400000016, partial traded!
+2024-07-25 14:11:52,202 - [INFO] date 2019.09.30, asset 603858.SH, trade_value 108456.3266
+2024-07-25 14:11:52,208 - [INFO] date 2019.10.31, asset 000651.SZ, trade_value -5867.0
+2024-07-25 14:11:52,208 - [INFO] date 2019.10.31, asset 002475.SZ, trade_value -21615.65019999999
+2024-07-25 14:11:52,208 - [INFO] date 2019.10.31, asset 601689.SH, trade_value -1421.6501999999891
+2024-07-25 14:11:52,209 - [INFO] date 2019.10.31, asset 601818.SH, trade_value -9965.65019999999
+2024-07-25 14:11:52,209 - [INFO] date 2019.10.31, asset 603858.SH, trade_value -455.6501999999746
+2024-07-25 14:11:52,210 - [INFO] date 2019.10.31, asset 000001.SZ, trade_value 417.3498000000109
+2024-07-25 14:11:52,210 - [INFO] date 2019.10.31, asset 600031.SH, trade_value 9459.34980000001
+2024-07-25 14:11:52,210 - [INFO] date 2019.10.31, asset 601229.SH, trade_value 5799.349800000011
+2024-07-25 14:11:52,211 - [INFO] date 2019.10.31, asset 601288.SH, trade_value 478.3498000000109
+2024-07-25 14:11:52,211 - [INFO] date 2019.10.31, asset 601933.SH, trade_value 12507.349800000025
+2024-07-25 14:11:52,211 - [WARNIG] date 200, asset 40: only have cash of 3315.907000000163, partial traded!
+2024-07-25 14:11:52,212 - [INFO] date 2019.10.31, asset 603259.SH, trade_value 11160.34980000001
+2024-07-25 14:11:52,219 - [INFO] date 2019.11.30, asset 000651.SZ, trade_value -5771.0
+2024-07-25 14:11:52,220 - [INFO] date 2019.11.30, asset 002475.SZ, trade_value -3129.5092999999906
+2024-07-25 14:11:52,220 - [INFO] date 2019.11.30, asset 600031.SH, trade_value -6163.509299999991
+2024-07-25 14:11:52,220 - [INFO] date 2019.11.30, asset 601288.SH, trade_value -1095.5092999999906
+2024-07-25 14:11:52,221 - [INFO] date 2019.11.30, asset 601689.SH, trade_value -13517.50929999999
+2024-07-25 14:11:52,221 - [INFO] date 2019.11.30, asset 603858.SH, trade_value -2787.509300000005
+2024-07-25 14:11:52,222 - [INFO] date 2019.11.30, asset 000001.SZ, trade_value 7071.490700000009
+2024-07-25 14:11:52,222 - [INFO] date 2019.11.30, asset 601229.SH, trade_value 1373.4907000000094
+2024-07-25 14:11:52,222 - [INFO] date 2019.11.30, asset 601818.SH, trade_value 8083.490700000009
+2024-07-25 14:11:52,222 - [WARNIG] date 222, asset 37: only have cash of 9970.232500000162, partial traded!
+2024-07-25 14:11:52,223 - [INFO] date 2019.11.30, asset 601933.SH, trade_value 12267.49070000001
+2024-07-25 14:11:52,223 - [WARNIG] date 222, asset 40: only have cash of 345.4225000001625, partial traded!
+2024-07-25 14:11:52,223 - [INFO] date 2019.11.30, asset 603259.SH, trade_value 6984.490700000009
+2024-07-25 14:11:52,231 - [INFO] date 2019.12.31, asset 000001.SZ, trade_value -120961.0
+2024-07-25 14:11:52,231 - [INFO] date 2019.12.31, asset 000651.SZ, trade_value -6558.0
+2024-07-25 14:11:52,231 - [INFO] date 2019.12.31, asset 002475.SZ, trade_value -119645.99999999999
+2024-07-25 14:11:52,232 - [INFO] date 2019.12.31, asset 600031.SH, trade_value -130884.00000000001
+2024-07-25 14:11:52,232 - [INFO] date 2019.12.31, asset 601229.SH, trade_value -116144.0
+2024-07-25 14:11:52,233 - [INFO] date 2019.12.31, asset 601689.SH, trade_value -140940.0
+2024-07-25 14:11:52,233 - [INFO] date 2019.12.31, asset 601818.SH, trade_value -119407.99999999999
+2024-07-25 14:11:52,233 - [INFO] date 2019.12.31, asset 601933.SH, trade_value -112036.0
+2024-07-25 14:11:52,233 - [INFO] date 2019.12.31, asset 603259.SH, trade_value -109188.0
+2024-07-25 14:11:52,234 - [INFO] date 2019.12.31, asset 603858.SH, trade_value -111595.0
+2024-07-25 14:11:52,234 - [INFO] date 2019.12.31, asset 000157.SZ, trade_value 120339.74225000001
+2024-07-25 14:11:52,234 - [INFO] date 2019.12.31, asset 000725.SZ, trade_value 120339.74225000001
+2024-07-25 14:11:52,235 - [INFO] date 2019.12.31, asset 002027.SZ, trade_value 120339.74225000001
+2024-07-25 14:11:52,235 - [INFO] date 2019.12.31, asset 002142.SZ, trade_value 120339.74225000001
+2024-07-25 14:11:52,235 - [INFO] date 2019.12.31, asset 600016.SH, trade_value 120339.74225000001
+2024-07-25 14:11:52,236 - [INFO] date 2019.12.31, asset 600019.SH, trade_value 120339.74225000001
+2024-07-25 14:11:52,236 - [INFO] date 2019.12.31, asset 600919.SH, trade_value 120339.74225000001
+2024-07-25 14:11:52,236 - [INFO] date 2019.12.31, asset 601288.SH, trade_value 4647.74225000001
+2024-07-25 14:11:52,236 - [INFO] date 2019.12.31, asset 601398.SH, trade_value 120339.74225000001
+2024-07-25 14:11:52,237 - [WARNIG] date 243, asset 39: only have cash of 108590.5180000001, partial traded!
+2024-07-25 14:11:52,237 - [INFO] date 2019.12.31, asset 601988.SH, trade_value 120339.74225000001
+2024-07-25 14:11:52,237 - [INFO] Backtest Done...
+2024-07-25 14:11:52,269 - [INFO] Result is now showing in app...

@@ -84,7 +84,8 @@ class Orchestrator:
             find_trading_date = self.quote_matrix.index >= _quote_date
             idx = np.where(find_trading_date == True)[0][0]
             self.trading_date_mapping[idx] = idate
-        self.robot.res['mapping'] = self.trading_date_mapping
+        self.robot.res['date_mapping'] = self.trading_date_mapping
+        self.robot.res['stkcode_mapping'] = self.quote_matrix.columns
         # backtest go
         self.brain = Playback(quote=self.quote)
         self.brain.order_execution(self.robot.res)

@@ -64,7 +64,6 @@ class TradeBase:
         
         trade_volume = np.floor(trade_val / price // self.multi) * self.multi 
         self.update_balancesheet(idate, iasset, trade_volume, price)
-        logging.info(f'[INFO] date {idate}, asset {iasset}, trade_value {trade_val}')
         return
 
     def sell(self, idate, iasset, trade_val, price):
@@ -85,7 +84,6 @@ class TradeBase:
                 f'only have position of {pos}, require {trade_volume}')
 
         self.update_balancesheet(idate, iasset, trade_volume, price)
-        logging.info(f'[INFO] date {idate}, asset {iasset}, trade_value {trade_val}...')
         return 
     
     def hold(self, idate, iasset):

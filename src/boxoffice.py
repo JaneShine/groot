@@ -31,7 +31,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import datetime
 from src.orchestrator import Orchestrator
-from src.picture import add_figure
+from src.figure import add_figure
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -154,10 +154,10 @@ def update_graphs(n_clicks, querying, start_date, end_date, frequency):
         orch = Orchestrator(querying, start_date, end_date, frequency)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
+        n_clicks = 0
         orch.run_backtest()
         df_report = orch.gen_report(save=True)
         value_figure , trade_figure = add_figure(df_report)
-        n_clicks = 0
         logging.info('[INFO] Result is now showing in app...')
         return value_figure, trade_figure
     return {}, {}

@@ -25,6 +25,9 @@ __license__ = 'MIT License'
 
 import numpy as np
 from src.base import TargetTrade
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+
 
 class Playback(TargetTrade):
     def __init__(self, quote, params=None):
@@ -55,7 +58,8 @@ class Playback(TargetTrade):
         return
     
     def order_execution(self, stk_dict):
-        operating_date = stk_dict['mapping']
+        operating_date = stk_dict['date_mapping']
+        stkcode_mapping = stk_dict['stkcode_mapping']
         for di in range(1, self.quote.shape[0]):
             if di in operating_date.keys():
                 date_key = operating_date[di]
@@ -82,10 +86,11 @@ class Playback(TargetTrade):
                 for ii in sell_idx:
                     trade_value = trade_value_array[ii]
                     self.target_sell(di, ii, trade_value)
-                    # TODO: add logging.info of detail trading di and ii
+                    logging.info(f'[INFO] date {date_key}, asset {stkcode_mapping[ii]}, trade_value {trade_value}')
                 for ii in buy_idx:
                     trade_value = trade_value_array[ii]
                     self.target_buy(di, ii, trade_value)
+                    logging.info(f'[INFO] date {date_key}, asset {stkcode_mapping[ii]}, trade_value {trade_value}')
                 for ii in hold_idx:
                     self.target_hold(di, ii)
             else:
