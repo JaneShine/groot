@@ -34,7 +34,7 @@ logging.basicConfig(level=logging.INFO,
 class TradeBase:
     """ A trade base declared kinds of trading executions, and for stk&etf only.
     `idate`or `di` represents the trading operation day, with the default being trading at the close.
-    After a successful trade, this class will update the balance sheet for the next day's close and record the trade info.
+    After a successful trade, this class will update the balance sheet for the tradingday's close and record the trade info.
     """
     def __init__(self, quote, booksize, params, *args, **kwargs):
         self.params = params  # this is for position adjustion weights and trading commissions dict
@@ -69,7 +69,7 @@ class TradeBase:
     def sell(self, idate, iasset, trade_val, price):
         '''trade_val is target trading market value WITH DIRECTION
         '''
-        pos = self.position[idate][iasset]
+        pos = self.position[idate - 1][iasset]
         if pos < 1e-5:
             raise KeyError(f'current position of {iasset} is 0, sell is forbiden!')
         
@@ -98,32 +98,31 @@ class TradeBase:
            NOTICE: 
            `self.position`, `self.cash`,`self.trade_val`,`self.trade_price`,`self.trade_volume`, `self.market_val`,`self.pnl`,should be define in subclass
         '''
-        self.position[idate + 1][iasset] = self.position[idate][iasset] + trade_volume
+        self.position[idate][iasset] = self.position[idate - 1][iasset] + trade_volume
         # consider the sequential trading scenarios of multiple assets, separately extract the retained cash for iteration
         self.cash_remained += -  trade_volume * trade_price - \
                                     trade_volume * trade_price * self.commission  
-        self.cash[idate + 1] = self.cash_remained
+        self.cash[idate] = self.cash_remained
         self.trade_val[idate][iasset] = trade_volume * trade_price
         self.trade_price[idate][iasset] = trade_price if trade_volume > 1e-5 else np.nan
         self.trade_volume[idate][iasset] = trade_volume
-        self.market_val[idate + 1][iasset] = self.position[idate + 1][iasset] *\
-                                             self.quote[idate + 1][iasset]
-        if np.isnan(self.quote[idate + 1][iasset]) or np.isnan(self.quote[idate][iasset]):  # suspension of trading
-            self.pnl[idate + 1][iasset] = self.pnl[idate][iasset]
+        self.market_val[idate][iasset] = self.position[idate][iasset] *\
+                                             self.quote[idate][iasset]
+        if np.isnan(self.quote[idate][iasset]) or np.isnan(self.quote[idate - 1][iasset]):  # suspension of trading
+            self.pnl[idate][iasset] = self.pnl[idate - 1][iasset]
         else:
-            self.pnl[idate + 1][iasset] = self.pnl[idate][iasset] + \
-                                        (self.position[idate][iasset] * (self.quote[idate + 1][iasset] - self.quote[idate][iasset])) + \
-                                        (trade_volume * (self.quote[idate + 1][iasset] - trade_price))
+            self.pnl[idate][iasset] = self.pnl[idate - 1][iasset] + \
+                                        (self.position[idate - 1][iasset] * (self.quote[idate][iasset] - self.quote[idate - 1][iasset])) + \
+                                        (trade_volume * (self.quote[idate][iasset] - trade_price))
         return
 
 
 class TargetTrade(TradeBase):
     """SignalTrade
-    This is a sim-trade object job base for signal-based strategy with specified buy/sell/hold signal in timeline and a trading weight of booksize declared.
+    This is a sim-trade object job base for a target market value strategy in timeline and a trading weight or value of booksize should be declared.
     The class aimed at updation of current state of position and pnl calculation
-
     """
-    def __init__(self, init_position=None, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         '''init the requried dict to record the trade order
         status dict: pnl, price, market_val, cash, positon 
         var dict: trade_volume, trade_val
@@ -131,30 +130,22 @@ class TargetTrade(TradeBase):
         '''
         super().__init__(*args, **kwargs)
         self.status_tuple = self.quote.shape
-        self.var_tuple = (self.quote.shape[0]-1, self.quote.shape[1])
-        # mandatory
         self.cash = np.zeros(self.status_tuple[0])
         self.cash[0] = self.booksize
-        # optional
-        self.position = init_position
-        if self.position is None:
-            self.position = np.zeros(self.status_tuple) # positions are initialized by setting default of ndarray of signal.shape
-        else:
-            self.position =  np.vstack((self.position, np.zeros(self.var_tuple)))  # expand into panel
-
+        self.position = np.zeros(self.status_tuple)
         self.reset()
         return 
 
     def reset(self):
         '''reset the dict to be traced
         '''
-        self.trade_val = np.zeros(self.var_tuple)
+        self.trade_val = np.zeros(self.status_tuple)
         self.market_val = np.zeros(self.status_tuple)
         self.market_val[:,0] = self.position[:,0] * self.quote[:,0]
         # for performance
         self.pnl = np.zeros(self.status_tuple)
-        self.trade_price = np.zeros(self.var_tuple)
-        self.trade_volume = np.zeros(self.var_tuple)
+        self.trade_price = np.zeros(self.status_tuple)
+        self.trade_volume = np.zeros(self.status_tuple)
         return
     
     def target_buy(self, idate, iasset, trade_val):

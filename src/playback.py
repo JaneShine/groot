@@ -24,10 +24,10 @@ __license__ = 'MIT License'
  #================================================================================
 
 import numpy as np
-from src.strategy import TargetTrade
+from src.base import TargetTrade
 import pdb
 
-class Backtest(TargetTrade):
+class Playback(TargetTrade):
     def __init__(self, quote, params=None):
         self.params = params
         # self.quote = np.random.rand(10, 3) * 10
@@ -52,13 +52,12 @@ class Backtest(TargetTrade):
     
     def init_trade(self):
         TargetTrade.__init__(self, quote=self.quote, booksize=self.booksize,
-                             init_position=self.init_position, params=self.params)
+                             params=self.params)
         return
     
     def order_execution(self, stk_dict):
         operating_date = stk_dict['mapping']
-        self.cash[1] = self.booksize
-        for di in range(1, self.quote.shape[0]-1):
+        for di in range(1, self.quote.shape[0]):
             if di in operating_date.keys():
                 date_key = operating_date[di]
                 stk_list = stk_dict[date_key].stk_idx.to_list()
@@ -84,6 +83,7 @@ class Backtest(TargetTrade):
                 for ii in sell_idx:
                     trade_value = trade_value_array[ii]
                     self.target_sell(di, ii, trade_value)
+                    # TODO: add logging.info of detail trading di and ii
                 for ii in buy_idx:
                     trade_value = trade_value_array[ii]
                     self.target_buy(di, ii, trade_value)

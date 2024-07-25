@@ -30,7 +30,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import datetime
-from src.datamanager import DataManager
+from src.orchestrator import Orchestrator
 
 app = dash.Dash(__name__)
 
@@ -147,9 +147,11 @@ app.layout = html.Div([
 )
 def update_graphs(n_clicks, querying, start_date, end_date, frequency):
     if n_clicks > 0:
-        # dm = DataManager(querying, start_date, end_date, frequency)
-        # dm.fetch_stock_codes()
-        # dm.fetch_daily_data()
+        # orch = DataManager(querying, start_date, end_date, frequency)
+        # orch.fetch_stock_codes()
+        # orch.fetch_daily_data()
+        # orch.run_backtest()
+        # df_report = orch.gen_report()
         value_figure = {
             'data': [],
             'layout': {

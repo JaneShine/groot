@@ -27,7 +27,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
 import numpy as np
-from src.backtest import Backtest
+from src.playback import Playback
 from api.api_wencai import iFindQuerying
 from src.utils import date_resample
 import tushare as ts
@@ -35,7 +35,7 @@ from tqdm import tqdm
 import pdb
 
 
-class DataManager:
+class Orchestrator:
     def __init__(self, querying, start_date, end_date, freq):
         self.pro = ts.pro_api()
         self.querying = querying
@@ -55,7 +55,9 @@ class DataManager:
         self.codes = set(self.robot.stk_codes)
         quote_list = []
         for icode in self.codes:
-            _quote = self.pro.daily(ts_code=icode, start_date=self.start, end_date=self.end)
+            _quote = self.pro.daily(ts_code=icode,
+                                    start_date=self.start,
+                                    end_date=self.end)
             quote_list.append(_quote)
         df_quote = pd.concat(quote_list)
         self.quote_matrix = df_quote.pivot_table(index='trade_date',
@@ -67,7 +69,8 @@ class DataManager:
         # mark idx for robot.res
         for k in self.robot.res.keys():
             _slice = self.robot.res[k]
-            _slice['stk_idx'] = self.quote_matrix.columns.get_indexer(_slice['股票代码'].to_list())
+            _slice['stk_idx'] = self.quote_matrix.columns\
+                                    .get_indexer(_slice['股票代码'].to_list())
         self.quote_matrix.columns
         # offset tradingdate mapping: find the nearlest date can be traded
         self.trading_date_mapping = {}
@@ -79,20 +82,29 @@ class DataManager:
             self.trading_date_mapping[idx] = idate
         self.robot.res['mapping'] = self.trading_date_mapping
         # backtest go
-        self.brain = Backtest(quote=self.quote)
+        self.brain = Playback(quote=self.quote)
         self.brain.order_execution(self.robot.res)
         return 
     
-    def gen_report(self):
+    def gen_report(self, save=True):
         df_report = pd.DataFrame()
-        df_report['pnl'] = pd.DataFrame(self.brain.pnl).sum(axis=1)
+        df_report['total_pnl'] = pd.DataFrame(self.brain.pnl).sum(axis=1)
+        df_report['mktv'] = pd.DataFrame(self.brain.market_val)\
+                            .fillna(method='ffill').sum(axis=1)
+        df_report['cash_remained'] = self.brain.cash
+        df_report['trade_value'] = pd.DataFrame(self.brain.trade_val).sum(axis=1)
+        df_report['booksize'] = df_report.mktv + df_report.cash
+        df_report.index = self.quote_matrix.index
+        if save and not df_report.empty:
+            df_report.to_csv('backtest_rpt_data.csv')
         return df_report
+
 
 if __name__ == '__main__':
     # a = BackTest(quote)
-    # a.order_execution(b.res)
-    dm = DataManager('中外资加仓持股股数前十的股票', '20190101', '20200101', 'M')
-    dm.fetch_stock_codes()
-    dm.fetch_daily_data()
-    dm.run_backtest()
-    df_report = dm.gen_report()
+    # oa.oorder_execution(b.res)
+    orch =Orchestrator('中外资加仓持股股数前十的股票', '20190101', '20200101', 'M')
+    orch.fetch_stock_codes()
+    orch.fetch_daily_data()
+    orch.run_backtest()
+    df_report = orch.gen_report(save=True)

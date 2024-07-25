@@ -1,4 +1,4 @@
-from src.dash_app import app
+from src.backstage import app
 
 
 
