@@ -105,6 +105,7 @@ class Orchestrator:
         df_report['cash_remained'] = self.brain.cash
         df_report['trade_value'] = pd.DataFrame(self.brain.trade_val).sum(axis=1)
         df_report['booksize'] = df_report.mktv + df_report.cash_remained
+        df_report.booksize = df_report.booksize.fillna(method='ffill')
         df_report.index = self.quote_matrix.index
         df_report.index = pd.to_datetime(df_report.index, format='%Y%m%d')
         if save and not df_report.empty:
