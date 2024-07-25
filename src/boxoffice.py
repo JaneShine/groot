@@ -22,8 +22,6 @@ __license__ = 'MIT License'
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #================================================================================
-import sys
-import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -32,7 +30,6 @@ import datetime
 from src.orchestrator import Orchestrator
 from src.figure import add_figure
 import logging
-
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 app = dash.Dash(__name__)
@@ -141,7 +138,20 @@ app.layout = html.Div([
     
     html.Div([
         dcc.Graph(id='value-graph'),
-        dcc.Graph(id='trade-graph')
+        dcc.Graph(id='trade-graph'),
+        html.Div([
+            html.H3('Log Details', style={'textAlign': 'center'}),
+            html.Pre(id='log-output', style={
+                'height': '300px', 'overflowY': 'scroll', 
+                'backgroundColor': '#f5f5f5', 'padding': '10px',
+                'border': '1px solid #ddd', 'borderRadius': '4px'
+            }),
+            dcc.Interval(
+                id='interval-component',
+                interval=2*1000,  # 刷新间隔时间，单位为毫秒（2秒）
+                n_intervals=0
+            )
+        ], style={'marginTop': '20px'})
     ], style=right_column_style)
 ], style={'display': 'flex', 'justifyContent': 'space-between'})
 
@@ -155,20 +165,32 @@ app.layout = html.Div([
      State('frequency-dropdown', 'value'),
      State('actual-booksize-input', 'value')]
 )
-def update_graphs(n_clicks, querying, start_date, end_date, frequency, actual_booksize):
+def update_graphs(n_clicks, querying, 
+                  start_date, end_date,
+                  frequency, actual_booksize,
+                  commission, multi):
     if n_clicks > 0:
-        orch = Orchestrator(querying, start_date, end_date, frequency, actual_booksize)
+        orch = Orchestrator(querying, start_date, end_date,
+                             frequency, actual_booksize,
+                             commission, multi)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
         n_clicks = 0
         orch.run_backtest()
         df_report = orch.gen_report(save=True)
-        value_figure, trade_figure = add_figure(df_report)
+        value_figure, trade_figure = add_figure(df_report, actual_booksize)
         logging.info('[INFO] Result is now showing in app...')
         return value_figure, trade_figure
     return {}, {}
 
+@app.callback(
+    Output('log-output', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_log(n_intervals):
+    with open('trade.log', 'r', encoding='utf-8') as f:
+        logs = f.read()
+    return logs
+
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-

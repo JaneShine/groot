@@ -37,16 +37,16 @@ class TradeBase:
     `idate`or `di` represents the trading operation day, with the default being trading at the close.
     After a successful trade, this class will update the balance sheet for the tradingday's close and record the trade info.
     """
-    def __init__(self, quote, booksize, params, *args, **kwargs):
-        self.params = params  # this is for position adjustion weights and trading commissions dict
-        if self.params is None:
+    def __init__(self, quote, booksize, commission=None, multi=None, *args, **kwargs):
+        self.partial_traded = True  # partial execution of trades when cash or position is insufficient
+        if commission is None:
             self.commission = 0.0005
-            self.partial_traded = True  # partial execution of trades when cash or position is insufficient
-            self.multi = 100  # default stk cn
         else:
-            self.commission = float(self.params['commission'])
-            self.partial_traded = self.params['partial_traded'] == 'true'
-            self.multi = int(self.params['multi'])
+            self.commission = commission
+        if multi is None:
+            self.multi = 100
+        else:
+            self.multi = multi
         self.quote = quote
         self.booksize = booksize
         self.cash_remained = self.booksize

@@ -30,19 +30,22 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 class Playback(TargetTrade):
-    def __init__(self, quote, booksize=None):
+    def __init__(self, quote, booksize=None,
+                  commission=None, multi=None):
         # self.quote = np.random.rand(10, 3) * 10
         self.quote = quote
         if booksize is None:
             self.booksize = 100_0000
         else:
             self.booksize = booksize
+        self.commission = commission
+        self.multi = multi
         self.init_trade()
         return
     
     def init_trade(self):
         TargetTrade.__init__(self, quote=self.quote, booksize=self.booksize,
-                             params=self.params)
+                             commission=self.commission, multi=self.multi)
         return
     
     def order_execution(self, stk_dict):
