@@ -28,7 +28,7 @@ import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(message)s',
                     handlers=[
-                        logging.FileHandler('./trade.log', mode='a'),
+                        logging.FileHandler('./trade.log', mode='w'),
                         logging.StreamHandler()
                     ])
 
@@ -56,9 +56,8 @@ class TradeBase:
         '''signal == 1 trade_val is target trading market value WITH DIRECTION
         '''
         if trade_val > self.cash_remained:
-            if  self.partial_traded:
+            if self.partial_traded:
                 trade_val = self.cash_remained
-                logging.warning(f'[WARNIG] date {idate}, asset {iasset}: only have cash of {self.cash_remained}, partial traded!')
             else:
                 raise ValueError(f'[ERROR] date {idate}, asset {iasset}: trade value of {trade_val} exceeds cash remained:{self.cash_remained}!')
         
@@ -78,7 +77,6 @@ class TradeBase:
         if abs(trade_volume) > pos:
             if self.partial_traded:
                 trade_volume = np.sign(trade_val) * pos
-                logging.info(f'[WARNIG] date {idate}, asset {iasset}: only have position of {pos}, partial traded!')
             else:
                 raise ValueError(
                 f'only have position of {pos}, require {trade_volume}')

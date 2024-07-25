@@ -29,12 +29,12 @@ import pandas as pd
 import numpy as np
 from src.playback import Playback
 from api.api_wencai import iFindQuerying
-from src.utils import date_resample
+from src.utils import date_resample, TqdmToLogger
 import tushare as ts
 from tqdm import tqdm
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-
+tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
 
 class Orchestrator:
     def __init__(self, querying, start_date, end_date, freq, booksize, commission, multi):
@@ -52,7 +52,8 @@ class Orchestrator:
 
     def fetch_stock_codes(self):
         logging.info('[INFO] Querying understanding...')
-        for idate in tqdm(self.querying_date):
+        for idate in tqdm(self.querying_date,file=tqdm_out,
+                           ncols=100, desc='Processing'):
             self.robot.fetching_stock(idate)
         return
 

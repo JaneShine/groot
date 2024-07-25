@@ -133,6 +133,22 @@ app.layout = html.Div([
             value=1000000,  # default value
             style=input_style
         ),
+        html.Label('Commission', style=label_style),
+        dcc.Input(
+            id='commission-input',
+            type='number',
+            value=0.002,  # default value
+            step=0.0001,
+            style=input_style
+        ),
+        html.Label('Multiplier', style=label_style),
+        dcc.Input(
+            id='multiplier-input',
+            type='number',
+            value=100,  # default value
+            step=0.1,
+            style=input_style
+        ),
         html.Button('GO', id='go-button', n_clicks=0, style=button_style)
     ], style=left_column_style),
     
@@ -163,23 +179,30 @@ app.layout = html.Div([
      State('start-date-picker', 'date'),
      State('end-date-picker', 'date'),
      State('frequency-dropdown', 'value'),
-     State('actual-booksize-input', 'value')]
+     State('actual-booksize-input', 'value'),
+     State('commission-input', 'value'),
+     State('multiplier-input', 'value')]
 )
-def update_graphs(n_clicks, querying, 
+def update_graphs(n_clicks, querying,
                   start_date, end_date,
-                  frequency, actual_booksize,
-                  commission, multi):
+                  frequency, 
+                  actual_booksize, 
+                  commission, 
+                  multi):
     if n_clicks > 0:
-        orch = Orchestrator(querying, start_date, end_date,
-                             frequency, actual_booksize,
-                             commission, multi)
+        orch = Orchestrator(querying, start_date, end_date, 
+                            frequency, 
+                            actual_booksize, 
+                            commission, 
+                            multi)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
-        n_clicks = 0
         orch.run_backtest()
         df_report = orch.gen_report(save=True)
-        value_figure, trade_figure = add_figure(df_report, actual_booksize)
+        logging.info('[INFO] Successfully generate backtest report data...')
+        value_figure, trade_figure = add_figure(df_report)
         logging.info('[INFO] Result is now showing in app...')
+        n_clicks = 0
         return value_figure, trade_figure
     return {}, {}
 
