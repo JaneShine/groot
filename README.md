@@ -13,7 +13,7 @@
 ```bash
 python main.py
 ```
-![alt text](picture/image.png)
+![alt text](./picture/image.png)
 ### 向groot提出一个投资思路
 #### 可以尝试各种prompt
 - 中外资加仓持股股数前十的股票
@@ -33,11 +33,11 @@ python main.py
 
 ## 得到直观结果
 ### 结果图表
-![alt text](picture/image-3.png)
-![alt text](picture/image-1.png)
+![alt text](./picture/image-3.png)
+![alt text](./picture/image-1.png)
 ### 在交易记录台查看日志
-![alt text](picture/image-4.png)
-![alt text](picture/image-5.png)
+![alt text](./picture/image-4.png)
+![alt text](./picture/image-5.png)
 
 #### 感谢
 - [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口
