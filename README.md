@@ -13,6 +13,8 @@
 ```bash
 python main.py
 ```
+然后在浏览器中访问[http://127.0.0.1:8050/](http://127.0.0.1:8050/)
+
 ![alt text](./picture/image.png)
 ### 向groot提出一个投资思路
 #### 可以尝试各种prompt
