@@ -37,13 +37,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 class Orchestrator:
-    def __init__(self, querying, start_date, end_date, freq):
+    def __init__(self, querying, start_date, end_date, freq, booksize):
         self.pro = ts.pro_api()
         self.querying = querying
         self.robot = iFindQuerying(querying)
         self.start = str(start_date).replace('-','')
         self.end = str(end_date).replace('-','')
         self.freq = freq
+        self.booksize = booksize
         self.querying_date = date_resample(self.start, self.end, self.freq)
         return
 
@@ -87,7 +88,7 @@ class Orchestrator:
         self.robot.res['date_mapping'] = self.trading_date_mapping
         self.robot.res['stkcode_mapping'] = self.quote_matrix.columns
         # backtest go
-        self.brain = Playback(quote=self.quote)
+        self.brain = Playback(quote=self.quote, booksize=self.booksize)
         self.brain.order_execution(self.robot.res)
         logging.info('[INFO] Backtest Done...')
         return 

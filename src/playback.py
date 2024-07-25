@@ -30,25 +30,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 class Playback(TargetTrade):
-    def __init__(self, quote, params=None):
-        self.params = params
+    def __init__(self, quote, booksize=None):
         # self.quote = np.random.rand(10, 3) * 10
-        default_position = None
-        default_booksize = 100_0000
         self.quote = quote
-        if self.params is None:
-            self.booksize = default_booksize
-            self.init_position = default_position
+        if booksize is None:
+            self.booksize = 100_0000
         else:
-            if 'booksize' in self.params.keys():
-                self.booksize = self.params['booksize']
-            else:
-                self.booksize = default_booksize
-            if 'init_position' in self.params.keys():
-                self.init_position = self.params['init_position']
-            else:
-                self.init_position = default_position
-                
+            self.booksize = booksize
         self.init_trade()
         return
     

@@ -24,7 +24,6 @@ __license__ = 'MIT License'
 #================================================================================
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -33,6 +32,7 @@ import datetime
 from src.orchestrator import Orchestrator
 from src.figure import add_figure
 import logging
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 app = dash.Dash(__name__)
@@ -129,6 +129,13 @@ app.layout = html.Div([
             value='M',  # default value
             style={'marginBottom': '20px'}
         ),
+        html.Label('Actual Book Size', style=label_style),
+        dcc.Input(
+            id='actual-booksize-input',
+            type='number',
+            value=1000000,  # default value
+            style=input_style
+        ),
         html.Button('GO', id='go-button', n_clicks=0, style=button_style)
     ], style=left_column_style),
     
@@ -145,19 +152,18 @@ app.layout = html.Div([
     [State('stock-selection-input', 'value'),
      State('start-date-picker', 'date'),
      State('end-date-picker', 'date'),
-     State('frequency-dropdown', 'value')
-     ]
+     State('frequency-dropdown', 'value'),
+     State('actual-booksize-input', 'value')]
 )
-def update_graphs(n_clicks, querying, start_date, end_date, frequency):
-    # TODO: add params of details
+def update_graphs(n_clicks, querying, start_date, end_date, frequency, actual_booksize):
     if n_clicks > 0:
-        orch = Orchestrator(querying, start_date, end_date, frequency)
+        orch = Orchestrator(querying, start_date, end_date, frequency, actual_booksize)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
         n_clicks = 0
         orch.run_backtest()
         df_report = orch.gen_report(save=True)
-        value_figure , trade_figure = add_figure(df_report)
+        value_figure, trade_figure = add_figure(df_report)
         logging.info('[INFO] Result is now showing in app...')
         return value_figure, trade_figure
     return {}, {}
