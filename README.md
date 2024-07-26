@@ -69,7 +69,7 @@ imgroot
 ![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/log1.png)
 
 #### 感谢
-- [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口,需要注册后填写token方能获取A股日度行情数据
+- [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口,需要注册后完善个人资料，复制token方能获取A股日度行情数据
 - [x] [同花顺问财](https://www.iwencai.com/unifiedwap/home/index)：提供标准的数据字典和免费的智能查询；也要感谢[zsrl提供的开源工具](https://github.com/zsrl/pywencai#loop)
 
 
@@ -77,4 +77,4 @@ imgroot
 1. 需要**有明确的语义定位到有限个股票**，范围太大的模糊语义容易卡死；
 2. 如果请求股票代码报错，大概率是网络问题，请刷新浏览器重新点击`Go`；
 3. 大模型选股的语义理解步骤需要在时间轴反复提交prompt请求，性能上暂时无法提速，效率考虑不开放日频等回测频率。
-4. 需要安装node.js v16+
+4. 需要安装[node.js v16+](https://nodejs.org/download/docs/v0.12.7/)
