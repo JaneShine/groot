@@ -217,3 +217,4 @@ def update_log(n_intervals):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+    

@@ -24,9 +24,9 @@ __license__ = 'MIT License'
 #================================================================================
 
 import numpy as np
-from src.base import TargetTrade
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+from src.base import TargetTrade
 
 
 class Playback(TargetTrade):
@@ -88,7 +88,3 @@ class Playback(TargetTrade):
                 for ii in range(self.quote.shape[1]):
                     self.target_hold(di, ii)
         return
-
-
-
-

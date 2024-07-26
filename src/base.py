@@ -171,3 +171,4 @@ class TargetTrade(TradeBase):
         '''the order to update the position
         '''
         raise NotImplementedError(f"Please implement the `order_execution` method")
+    

@@ -27,14 +27,15 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
 import numpy as np
+import tushare as ts
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+from tqdm import tqdm
+tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
 from src.playback import Playback
 from api.api_wencai import iFindQuerying
 from src.utils import date_resample, TqdmToLogger
-import tushare as ts
-from tqdm import tqdm
-import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
+
 
 class Orchestrator:
     def __init__(self, querying, start_date, end_date, freq, booksize, commission, multi):
