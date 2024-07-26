@@ -32,7 +32,6 @@ from src.base import TargetTrade
 class Playback(TargetTrade):
     def __init__(self, quote, booksize=None,
                   commission=None, multi=None):
-        # self.quote = np.random.rand(10, 3) * 10
         self.quote = quote
         if booksize is None:
             self.booksize = 100_0000
@@ -51,7 +50,9 @@ class Playback(TargetTrade):
     def order_execution(self, stk_dict):
         operating_date = stk_dict['date_mapping']
         stkcode_mapping = stk_dict['stkcode_mapping']
+
         for di in range(1, self.quote.shape[0]):
+
             if di in operating_date.keys():
                 date_key = operating_date[di]
                 stk_list = stk_dict[date_key].stk_idx.to_list()
@@ -65,14 +66,15 @@ class Playback(TargetTrade):
                 close_idx = np.array(list(diff))
                 stk_list_new = np.array(list(set(stk_list + list(now_stk_list))))
                 trade_value_array[stk_list_new] = target_value - now_mktv[stk_list_new]
+
                 if len(close_idx):
                     trade_value_array[close_idx] = - now_mktv[close_idx]  # close position when need
-                else:
-                    pass
+
                 # locate trade operate type
                 sell_idx = np.where(trade_value_array < 0)[0]
                 buy_idx = np.where(trade_value_array > 0)[0]
                 hold_idx = np.where(trade_value_array == 0)[0]
+                
                 # close the position first to release cash
                 for ii in sell_idx:
                     trade_value = trade_value_array[ii]

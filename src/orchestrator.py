@@ -31,10 +31,10 @@ import tushare as ts
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 from tqdm import tqdm
-tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
 from src.playback import Playback
 from api.api_wencai import iFindQuerying
 from src.utils import date_resample, TqdmToLogger
+tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
 
 
 class Orchestrator:

@@ -164,7 +164,7 @@ app.layout = html.Div([
             }),
             dcc.Interval(
                 id='interval-component',
-                interval=2*1000,  # 刷新间隔时间，单位为毫秒（2秒）
+                interval=1000,  # 刷新间隔时间，单位为毫秒
                 n_intervals=0
             )
         ], style={'marginTop': '20px'})
