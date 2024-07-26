@@ -1,4 +1,21 @@
 # groot: Make your flash of thought tradable
+
+<p align="center">
+  <a href="https://github.com/JaneShine/groot/stargazers/">
+    <img src="https://img.shields.io/github/stars/JaneShine/groot" alt='pypi'>
+  </a>
+  <a href="https://pypi.org/project/groot-quant/">
+    <img src="https://img.shields.io/badge/pypi-v0.1.1-brightgreen.svg?style=popout" alt='pypi'>
+  </a>
+
+  <a href="https://github.com/JaneShine/groot/issues">
+    <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=popout" alt="contributions">
+  </a>
+  <a href="https://github.com/JaneShine/groot?tab=MIT-1-ov-file">
+    <img src="https://img.shields.io/github/license/JaneShine/groot.svg?style=popout" alt="license">
+  </a>
+</p>
+
 一个通过大模型语义理解选股并完成A股策略回测与策略报告输出的量化玩具，目的是**快速验证投资小念头**。
 
 `groot`是一个将某种投资思维进行量化验证的尝试，其目的在于把一些投资思路转化为可交易的信号。
