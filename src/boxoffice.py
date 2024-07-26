@@ -2,8 +2,8 @@ __author__ = 'jxxie'
 __license__ = 'MIT License'
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output, State
 import datetime
 from src.orchestrator import Orchestrator
@@ -132,6 +132,13 @@ app.layout = html.Div([
             step=0.1,
             style=input_style
         ),
+        html.Label('API token', style=label_style),
+        dcc.Input(
+            id='token-input',
+            type='text',
+            value='',  # default value
+            style=input_style
+        ),
         html.Button('GO', id='go-button', n_clicks=0, style=button_style)
     ], style=left_column_style),
     
@@ -164,20 +171,23 @@ app.layout = html.Div([
      State('frequency-dropdown', 'value'),
      State('actual-booksize-input', 'value'),
      State('commission-input', 'value'),
-     State('multiplier-input', 'value')]
+     State('multiplier-input', 'value'),
+     State('token-input', 'value')]
 )
 def update_graphs(n_clicks, querying,
                   start_date, end_date,
                   frequency, 
                   actual_booksize, 
                   commission, 
-                  multi):
+                  multi,
+                  token):
     if n_clicks > 0:
         orch = Orchestrator(querying, start_date, end_date, 
                             frequency, 
                             actual_booksize, 
                             commission, 
-                            multi)
+                            multi,
+                            token)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
         orch.run_backtest()

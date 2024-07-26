@@ -22,8 +22,10 @@ tqdm_out = TqdmToLogger(logging.getLogger(), level=logging.INFO)
 
 
 class Orchestrator:
-    def __init__(self, querying, start_date, end_date, freq, booksize, commission, multi):
-        self.pro = ts.pro_api()
+    def __init__(self, querying, start_date, end_date,
+                freq, booksize, commission, multi, token
+                 ):
+        self.pro = ts.pro_api(token)
         self.querying = querying
         self.robot = iFindQuerying(querying)
         self.start = str(start_date).replace('-','')

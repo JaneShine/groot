@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/github/stars/JaneShine/groot" alt='pypi'>
   </a>
   <a href="https://pypi.org/project/groot-quant/">
-    <img src="https://img.shields.io/badge/pypi-v0.1.2-brightgreen.svg?style=popout" alt='pypi'>
+    <img src="https://img.shields.io/badge/pypi-v0.1.9-brightgreen.svg?style=popout" alt='pypi'>
   </a>
 
   <a href="https://github.com/JaneShine/groot/issues">
@@ -69,7 +69,7 @@ im groot
 ![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/log1.png)
 
 #### 感谢
-- [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口
+- [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口,需要注册后填写token方能获取A股日度行情数据
 - [x] [同花顺问财](https://www.iwencai.com/unifiedwap/home/index)：提供标准的数据字典和免费的智能查询；也要感谢[zsrl提供的开源工具](https://github.com/zsrl/pywencai#loop)
 
 
