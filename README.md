@@ -70,6 +70,7 @@ imgroot
 
 #### 感谢
 - [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口,需要注册后完善个人资料，复制token方能获取A股日度行情数据
+  - [x] 填写成功后的token下次浏览器刷新后可以不填
 - [x] [同花顺问财](https://www.iwencai.com/unifiedwap/home/index)：提供标准的数据字典和免费的智能查询；也要感谢[zsrl提供的开源工具](https://github.com/zsrl/pywencai#loop)
 
 

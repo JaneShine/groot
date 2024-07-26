@@ -25,7 +25,11 @@ class Orchestrator:
     def __init__(self, querying, start_date, end_date,
                 freq, booksize, commission, multi, token
                  ):
-        self.pro = ts.pro_api(token)
+        try:
+            self.pro = ts.pro_api(token)
+            os.environ['TUSHARE_TOKEN'] = token
+        except:
+            raise ValueError('API token invalid!')
         self.querying = querying
         self.robot = iFindQuerying(querying)
         self.start = str(start_date).replace('-','')
@@ -72,8 +76,11 @@ class Orchestrator:
         date_list = list(self.robot.res.keys())
         for idate in date_list:
             _quote_date = idate.replace('.','')
-            find_trading_date = self.quote_matrix.index >= _quote_date
-            idx = np.where(find_trading_date == True)[0][0]
+            if idate != date_list[-1]:
+                find_trading_date = self.quote_matrix.index >= _quote_date
+                idx = np.where(find_trading_date == True)[0][0]
+            else:
+                idx = -1
             self.trading_date_mapping[idx] = idate
         self.robot.res['date_mapping'] = self.trading_date_mapping
         self.robot.res['stkcode_mapping'] = self.quote_matrix.columns

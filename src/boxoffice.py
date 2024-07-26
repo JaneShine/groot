@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO,
                         logging.StreamHandler()
                     ])
 app = dash.Dash(__name__)
+import os
 
 # Styling dictionaries
 left_column_style = {
@@ -182,6 +183,8 @@ def update_graphs(n_clicks, querying,
                   multi,
                   token):
     if n_clicks > 0:
+        if os.getenv('TUSHARE_TOKEN') is not None:
+            token = os.environ['TUSHARE_TOKEN']  # fill token if env contains an available token
         orch = Orchestrator(querying, start_date, end_date, 
                             frequency, 
                             actual_booksize, 

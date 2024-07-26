@@ -39,7 +39,7 @@ class Playback(TargetTrade):
             if di in operating_date.keys():
                 date_key = operating_date[di]
                 stk_list = stk_dict[date_key].stk_idx.to_list()
-                now_booksize = self.cash[di-1] + sum(self.market_val[di-1])
+                now_booksize = self.cash[di-1] + np.nansum(self.market_val[di-1])  # booksize can be used
                 target_value = now_booksize / len(stk_list)
                 now_mktv = self.position[di-1] * self.quote[di-1]
                 now_stk_list = np.where(now_mktv> 0)[0]
@@ -56,8 +56,9 @@ class Playback(TargetTrade):
                 # locate trade operate type
                 sell_idx = np.where(trade_value_array < 0)[0]
                 buy_idx = np.where(trade_value_array > 0)[0]
-                hold_idx = np.where(trade_value_array == 0)[0]
-                
+                all_idx = np.arange(len(trade_value_array))
+                hold_idx = np.setdiff1d(all_idx, np.union1d(sell_idx, buy_idx))  # fix suspending
+
                 # close the position first to release cash
                 for ii in sell_idx:
                     trade_value = trade_value_array[ii]
