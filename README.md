@@ -35,7 +35,7 @@ pip install groot-quant
 ```
 输入指令
 ```bash
-im groot
+imgroot
 ```
 然后在浏览器中访问[http://127.0.0.1:8050/](http://127.0.0.1:8050/)
 
