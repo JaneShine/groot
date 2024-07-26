@@ -39,7 +39,8 @@ im groot
 ```
 然后在浏览器中访问[http://127.0.0.1:8050/](http://127.0.0.1:8050/)
 
-![alt text](./picture/image.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/start.png)
+
 ### 向groot提出一个投资思路
 #### 可以尝试各种prompt
 - 中外资加仓持股股数前十的股票
@@ -59,7 +60,7 @@ im groot
 
 ## 得到直观结果
 ### 结果图表
-![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/start.png)
+
 ![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/pnl.png)
 ![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/trade.png)
 
