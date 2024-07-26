@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/github/stars/JaneShine/groot" alt='pypi'>
   </a>
   <a href="https://pypi.org/project/groot-quant/">
-    <img src="https://img.shields.io/badge/pypi-v0.1.9-brightgreen.svg?style=popout" alt='pypi'>
+    <img src="https://img.shields.io/badge/pypi-v0.2.0-brightgreen.svg?style=popout" alt='pypi'>
   </a>
 
   <a href="https://github.com/JaneShine/groot/issues">
