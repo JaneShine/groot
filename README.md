@@ -9,9 +9,13 @@
 `groot` is an attempt to quantitatively verify institutional subjective thinking, with the goal of transforming some investment ideas into **tradable** signals.
 
 ## 立刻开始
-在terminal中输入
+安装
+```
+pip install groot-quant
+```
+输入指令
 ```bash
-python main.py
+im groot
 ```
 然后在浏览器中访问[http://127.0.0.1:8050/](http://127.0.0.1:8050/)
 

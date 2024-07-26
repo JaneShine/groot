@@ -22,11 +22,12 @@ __license__ = 'MIT License'
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #================================================================================
-
 from src.boxoffice import app
 
-
+def main():
+    app.run_server(debug=True)
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    main()
+
 
