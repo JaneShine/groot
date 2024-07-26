@@ -30,8 +30,12 @@ import datetime
 from src.orchestrator import Orchestrator
 from src.figure import add_figure
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
-
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(message)s',
+                    handlers=[
+                        logging.FileHandler('./trade.log', mode='w'),
+                        logging.StreamHandler()
+                    ])
 app = dash.Dash(__name__)
 
 # Styling dictionaries

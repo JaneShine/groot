@@ -29,7 +29,12 @@ import pandas as pd
 import numpy as np
 import tushare as ts
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(message)s',
+                    handlers=[
+                        logging.FileHandler('./trade.log', mode='w'),
+                        logging.StreamHandler()
+                    ])
 from tqdm import tqdm
 from src.playback import Playback
 from api.api_wencai import iFindQuerying

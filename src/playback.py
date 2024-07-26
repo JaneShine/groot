@@ -1,7 +1,7 @@
 __author__ = 'jxxie'
 __license__ = 'MIT License'
 
- #================================================================================
+#================================================================================
 # Copyright (c) [2024] [jxxie]
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,7 +25,12 @@ __license__ = 'MIT License'
 
 import numpy as np
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(message)s',
+                    handlers=[
+                        logging.FileHandler('./trade.log', mode='w'),
+                        logging.StreamHandler()
+                    ])
 from src.base import TargetTrade
 
 
