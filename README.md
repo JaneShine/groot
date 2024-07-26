@@ -1,4 +1,7 @@
 # groot: Make your flash of thought tradable
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JaneShine/groot/master/picture/logo.png" width="45%">
+</p>
 
 <p align="center">
   <a href="https://github.com/JaneShine/groot/stargazers/">
@@ -56,11 +59,13 @@ im groot
 
 ## 得到直观结果
 ### 结果图表
-![alt text](./picture/image-3.png)
-![alt text](./picture/image-1.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/start.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/pnl.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/trade.png)
+
 ### 在交易记录台查看日志
-![alt text](./picture/image-4.png)
-![alt text](./picture/image-5.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/log0.png)
+![alt text](https://raw.githubusercontent.com/JaneShine/groot/master/picture/log1.png)
 
 #### 感谢
 - [x] [挖地兔tushare](https://www.tushare.pro/document/2):提供股票日行情数据api接口
