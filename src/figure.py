@@ -81,3 +81,4 @@ def add_figure(df_report):
         }
     }
     return value_figure, trade_figure
+

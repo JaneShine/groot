@@ -40,3 +40,4 @@ class iFindQuerying:
         self.res[date] = df_stk
         self.stk_codes += df_stk['股票代码'].to_list()
         return self
+

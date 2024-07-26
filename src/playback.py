@@ -95,3 +95,4 @@ class Playback(TargetTrade):
                 for ii in range(self.quote.shape[1]):
                     self.target_hold(di, ii)
         return
+
