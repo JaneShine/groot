@@ -91,7 +91,7 @@ class Orchestrator:
         logging.info('[INFO] Backtest Done...')
         return 
     
-    def gen_report(self, save=True):
+    def gen_report(self):
         df_report = pd.DataFrame()
         df_report['total_pnl'] = pd.DataFrame(self.brain.pnl).sum(axis=1)
         df_report['mktv'] = pd.DataFrame(self.brain.market_val)\
@@ -102,7 +102,35 @@ class Orchestrator:
         df_report.booksize = df_report.booksize.fillna(method='ffill')
         df_report.index = self.quote_matrix.index
         df_report.index = pd.to_datetime(df_report.index, format='%Y%m%d')
-        if save and not df_report.empty:
-            df_report.to_csv('rpt_data.csv')
+        
         return df_report
+    
+    def save_report(self, df, save=True):
+        if save and not df.empty:
+            record_list = []
+            for k,v in self.robot.res.items():
+                if k not in ('date_mapping', 'stkcode_mapping'):
+                    v.columns = [x.split('[')[0] for x in v.columns]
+                    v.drop(['market_code','code','stk_idx'],
+                            axis=1, inplace=True)
+                    v['rebalance_date'] = k
+                    record_list.append(v)
+            df_record = pd.concat(record_list)
+            df_record.to_csv('detail_data.csv', encoding='gbk')
+            df.to_csv('rpt_data.csv')
+            logging.info(f'[INFO] Results have been saved to {os.getcwd()} !')
+        return
 
+
+if __name__ == '__main__':
+    orch = Orchestrator('中外资加仓持股股数前十的股票', '20190101', '20200101', 
+                            'M', 
+                            1000000, 
+                            0.02, 
+                            100,
+                            '93d2fe91f3b3db75dbd706c5d79bcbde32d7c0bf05c555d9ab052d52')
+    orch.fetch_stock_codes()
+    orch.fetch_daily_data()
+    orch.run_backtest()
+    df_report = orch.gen_report()
+    orch.save_report(df_report)
