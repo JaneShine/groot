@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="groot-quant",
-    version="0.1.8",
+    version="0.2.1",
     py_modules=['groot_main'],
     author="xiejingxian",
     author_email="xiejingxian@zju.edu.cn",
@@ -17,12 +17,12 @@ setup(
     install_requires=[
         "dash==2.17.1",
         "flask==3.0.3",
-        "numpy==1.24.4",
-        "pandas==2.0.3",
+        "numpy>=1.20.3,<1.21",
         "pywencai==0.12.2",
         "tqdm==4.66.2",
         "tushare==1.4.7",
         "watchdog==4.0.1",
+        "pyfolio==0.9.2",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
