@@ -17,7 +17,6 @@ setup(
     install_requires=[
         "dash==2.17.1",
         "flask==3.0.3",
-        "numpy>=1.20.3,<1.21",
         "pywencai==0.12.2",
         "tqdm==4.66.2",
         "tushare==1.4.7",
