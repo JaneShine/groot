@@ -5,7 +5,6 @@ import dash
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
-import pickle
 import datetime
 from src.orchestrator import Orchestrator
 from src.figure import add_figure
@@ -42,24 +41,9 @@ input_style = {
     'marginBottom': '20px'
 }
 
-go_button_style = {
-    'flex': '1',
-    'backgroundColor': '#4CAF50',
-    'color': 'white',
-    'padding': '10px',
-    'border': 'none',
-    'borderRadius': '4px',
-    'cursor': 'pointer',
-    'marginRight': '10px'
-}
-
-save_button_style = {
-    'flex': '1',
-    'backgroundColor': '#FF5722',
-    'color': 'white',
-    'padding': '10px',
-    'border': 'none',
-    'borderRadius': '4px',
+button_style = {
+    'width': '100%', 'backgroundColor': '#337ab7', 'color': 'white', 
+    'padding': '10px', 'border': 'none', 'borderRadius': '4px', 
     'cursor': 'pointer'
 }
 
@@ -156,10 +140,7 @@ app.layout = html.Div([
             value='',  # default value
             style=input_style
         ),
-       html.Div([
-            html.Button('GO', id='go-button', n_clicks=0, style=go_button_style),
-            html.Button('SAVE', id='save-button', n_clicks=0, style=save_button_style, disabled=True)
-            ], style={'display': 'flex', 'width': '100%', 'justifyContent': 'space-between'})
+        html.Button('GO', id='go-button', n_clicks=0, style=button_style)
     ], style=left_column_style),
     
     html.Div([
@@ -183,9 +164,7 @@ app.layout = html.Div([
 
 @app.callback(
     [Output('value-graph', 'figure'),
-     Output('trade-graph', 'figure'),
-     Output('save-button', 'disabled'),
-     Output('df-report-store', 'data')],
+     Output('trade-graph', 'figure')],
     [Input('go-button', 'n_clicks')],
     [State('stock-selection-input', 'value'),
      State('start-date-picker', 'date'),
@@ -203,15 +182,15 @@ def update_graphs(n_clicks, querying,
                   commission, 
                   multi,
                   token):
-    if os.getenv('TUSHARE_TOKEN') is not None:
-            token = os.environ['TUSHARE_TOKEN']  # fill token if env contains an available token
-    orch = Orchestrator(querying, start_date, end_date, 
-                        frequency, 
-                        actual_booksize, 
-                        commission, 
-                        multi,
-                        token)
     if n_clicks > 0:
+        if os.getenv('TUSHARE_TOKEN') is not None:
+            token = os.environ['TUSHARE_TOKEN']  # fill token if env contains an available token
+        orch = Orchestrator(querying, start_date, end_date, 
+                            frequency, 
+                            actual_booksize, 
+                            commission, 
+                            multi,
+                            token)
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
         orch.run_backtest()
@@ -219,25 +198,10 @@ def update_graphs(n_clicks, querying,
         logging.info('[INFO] Successfully generate backtest report data...')
         value_figure, trade_figure = add_figure(df_report)
         logging.info('[INFO] Result is now showing in app...')
-        # 存储 orchestrator 实例和报告数据
-        orch_data = pickle.dumps(orch)
-        df_report_data = pickle.dumps(df_report)
-        return value_figure, trade_figure, False, orch_data, df_report_data  # 启用保存按钮
-    return {}, {}, True, None, None  # 默认禁用保存按钮
-
-
-@app.callback(
-    Output('log-output', 'children'),
-    [Input('save-button', 'n_clicks')],
-    [State('orch-instance-store', 'data'),
-     State('df-report-store', 'data')]
-)
-def save_data(save_n_clicks, orch_data, df_report_data):
-    if save_n_clicks > 0 and orch_data and df_report_data:
-        orch = pickle.loads(orch_data)
-        df_report = pickle.loads(df_report_data)
-        orch.save_report(df_report)
-    return dash.no_update
+        orch.save_report(df_report, save=True)
+        n_clicks = 0
+        return value_figure, trade_figure
+    return {}, {}
 
 @app.callback(
     Output('log-output', 'children'),

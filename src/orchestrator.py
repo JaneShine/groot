@@ -118,7 +118,7 @@ class Orchestrator:
             df_record = pd.concat(record_list)
             df_record.to_csv('detail_data.csv', encoding='gbk')
             df.to_csv('rpt_data.csv')
-            logging.info(f'[INFO] Results have been saved to {os.getcwd()} !')
+            logging.info(f'[INFO] Results have been saved to {os.getcwd()}!')
         return
 
 
