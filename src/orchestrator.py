@@ -15,6 +15,7 @@ logging.basicConfig(level=logging.INFO,
                         logging.StreamHandler()
                     ])
 from tqdm import tqdm
+from pyfolio.timeseries import perf_stats
 from src.playback import Playback
 from api.api_wencai import iFindQuerying
 from src.utils import date_resample, TqdmToLogger
@@ -102,8 +103,8 @@ class Orchestrator:
         df_report.booksize = df_report.booksize.fillna(method='ffill')
         df_report.index = self.quote_matrix.index
         df_report.index = pd.to_datetime(df_report.index, format='%Y%m%d')
-        
-        return df_report
+        stats = perf_stats(df_report.booksize.pct_change().dropna())
+        return df_report, stats
     
     def save_report(self, df, save=True):
         if save and not df.empty:

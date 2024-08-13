@@ -1,14 +1,13 @@
 __author__ = 'jxxie'
 __license__ = 'MIT License'
 
+import os
 import dash
-from dash import dcc
-from dash import html
-from dash.dependencies import Input, Output, State
 import datetime
-from src.orchestrator import Orchestrator
-from src.figure import add_figure
+import pandas as pd
 import logging
+import warnings
+warnings.filterwarnings('ignore')
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(message)s',
                     handlers=[
@@ -16,7 +15,13 @@ logging.basicConfig(level=logging.INFO,
                         logging.StreamHandler()
                     ])
 app = dash.Dash(__name__)
-import os
+from dash import dcc
+from dash import html
+from dash.dependencies import Input, Output, State
+from dash import dash_table
+from src.orchestrator import Orchestrator
+from src.figure import add_figure
+
 
 # Styling dictionaries
 left_column_style = {
@@ -95,7 +100,7 @@ app.layout = html.Div([
                 min_date_allowed=datetime.date(2000, 1, 1),
                 max_date_allowed=datetime.date.today(),
                 initial_visible_month=datetime.date.today(),
-                date=datetime.date(2020, 1, 1),  # default value
+                date=datetime.date(2019, 6, 1),  # default value
                 day_size=35,
                 style=date_picker_style
             ), style={'width': '100%'}
@@ -145,7 +150,37 @@ app.layout = html.Div([
     
     html.Div([
         dcc.Graph(id='value-graph'),
-        dcc.Graph(id='trade-graph'),
+
+       html.Div([
+            dcc.Graph(id='trade-graph', style={'width': '70%', 'height': '400px', 'display': 'inline-block', 'marginRight': '1%'}),
+            dash_table.DataTable(
+                id='stats-table',
+                style_table={'width': '110%', 'display': 'inline-block', 'float': 'right', 'height': '400px', 'overflowY': 'auto'},
+                style_cell={
+                    'textAlign': 'center',
+                    'padding': '10px',
+                    'whiteSpace': 'normal',
+                    'height': 'auto',
+                    'fontFamily': 'Arial, sans-serif',
+                    'fontSize': '14px',
+                    'backgroundColor': '#f9f9f9',
+                },
+                style_header={
+                    'backgroundColor': '#0D47A1',
+                    'fontWeight': 'bold',
+                    'color': 'white',
+                    'border': '1px solid #ddd'
+                },
+                style_data_conditional=[
+                    {
+                        'if': {'row_index': 'odd'},
+                        'backgroundColor': '#f2f2f2'
+                    }
+                ],
+                style_as_list_view=True
+            ),
+        ], style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center'}),
+
         html.Div([
             html.H3('Log Details', style={'textAlign': 'center'}),
             html.Pre(id='log-output', style={
@@ -162,9 +197,12 @@ app.layout = html.Div([
     ], style=right_column_style)
 ], style={'display': 'flex', 'justifyContent': 'space-between'})
 
+# Update the callback function to include the table data
 @app.callback(
     [Output('value-graph', 'figure'),
-     Output('trade-graph', 'figure')],
+     Output('trade-graph', 'figure'),
+     Output('stats-table', 'data'),
+     Output('stats-table', 'columns')],
     [Input('go-button', 'n_clicks')],
     [State('stock-selection-input', 'value'),
      State('start-date-picker', 'date'),
@@ -194,14 +232,21 @@ def update_graphs(n_clicks, querying,
         orch.fetch_stock_codes()
         orch.fetch_daily_data()
         orch.run_backtest()
-        df_report = orch.gen_report()
+        df_report, stats = orch.gen_report()
         logging.info('[INFO] Successfully generate backtest report data...')
+        
         value_figure, trade_figure = add_figure(df_report)
         logging.info('[INFO] Result is now showing in app...')
         orch.save_report(df_report, save=True)
+        
+        # Prepare table data and columns
+        stats = pd.DataFrame(stats).reset_index()
+        stats.columns = ['Stats', 'Value']
+        data = stats.to_dict('records')
+        columns = [{'name': col, 'id': col} for col in stats.columns]
         n_clicks = 0
-        return value_figure, trade_figure
-    return {}, {}
+        return value_figure, trade_figure, data, columns
+    return {}, {}, [], []
 
 @app.callback(
     Output('log-output', 'children'),
