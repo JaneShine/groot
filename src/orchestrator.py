@@ -123,15 +123,3 @@ class Orchestrator:
         return
 
 
-if __name__ == '__main__':
-    orch = Orchestrator('中外资加仓持股股数前十的股票', '20190101', '20200101', 
-                            'M', 
-                            1000000, 
-                            0.02, 
-                            100,
-                            '93d2fe91f3b3db75dbd706c5d79bcbde32d7c0bf05c555d9ab052d52')
-    orch.fetch_stock_codes()
-    orch.fetch_daily_data()
-    orch.run_backtest()
-    df_report = orch.gen_report()
-    orch.save_report(df_report)
